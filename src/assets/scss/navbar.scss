@@ -1,0 +1,29 @@
+.nav {
+  padding-left: 57px;
+  padding-top: 39px;
+
+  @include mobile {
+    padding-top: 16px;
+    padding-left: 27px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+
+    img {
+      display: block;
+      width: 70px;
+      height: 72px;
+    }
+  }
+
+  .websiteName {
+    display: block;
+    font-size: 22px;
+    color: white;
+    margin-left: 14px;
+    -webkit-text-stroke: 1px $color-primary;
+  }
+}

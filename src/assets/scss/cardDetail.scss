@@ -1,0 +1,516 @@
+.nav {
+  padding-left: 57px;
+  padding-top: 39px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #dbdbdb;
+
+  @include mobile {
+    padding-top: 16px;
+    padding-left: 27px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+
+    img {
+      display: block;
+      width: 70px;
+      height: 72px;
+    }
+  }
+
+  .websiteName {
+    display: block;
+    font-size: 22px;
+    color: white;
+    margin-left: 14px;
+    -webkit-text-stroke: 1px $color-primary;
+  }
+}
+
+.info_section {
+  padding: 33px 101px;
+
+  @include mobile {
+    padding: 15px 41px 11px;
+  }
+
+  h2 {
+    font-weight: bold;
+    font-size: 34px;
+    color: $color-dark-50;
+  }
+  .badge {
+    background: $color-primary;
+    font-size: $font-size-md;
+    margin: 34px 0;
+    padding: 6px;
+    color: #fff;
+    display: inline-block;
+  }
+}
+
+.info_content {
+  display: flex;
+
+  @include mobile {
+    display: block;
+  }
+
+  .info_img {
+    // background: url("https://images.unsplash.com/photo-1523217582562-09d0def993a6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=804&h=549&q=80")
+    // 	no-repeat center center / cover;
+    width: 65%;
+    // width: 804px;
+    height: 549px;
+    margin-right: 68px;
+    flex-shrink: 0;
+
+    @include mobile {
+      width: 100%;
+    }
+
+    img {
+      width: 100%;
+      height: 549px;
+      object-fit: cover;
+    }
+  }
+
+  .info_details {
+    & div + div {
+      margin-top: 30px;
+    }
+
+    h3 {
+      font-size: $font-size-xxl;
+      color: $color-dark-50;
+      font-weight: bold;
+      margin-bottom: 40px;
+    }
+
+    h4 {
+      font-size: $font-size-lg;
+      color: $color-dark-50;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .info_details_phone,
+    .info_details_address,
+    .info_details_openTime {
+      font-size: $font-size-lg;
+      line-height: 1.2;
+
+      a {
+        // margin-left: 20px;
+        background: $color-primary;
+        border-radius: 5px;
+
+        &:hover,
+        &:focus {
+          background-color: rgba(63, 156, 179, 1);
+        }
+      }
+
+      .fa-copy,
+      .fa-map-marked-alt {
+        color: #fff;
+      }
+    }
+
+    .info_details_phone {
+      input {
+        display: none;
+        font-size: $font-size-lg;
+        outline: none;
+        border: none;
+        appearance: none;
+      }
+
+      a {
+        display: inline-block;
+        padding: 8px 11px;
+        margin-left: 10px;
+      }
+    }
+
+    .info_details_address {
+      a {
+        padding: 8px;
+      }
+
+      span {
+        display: inline-block;
+        margin-bottom: 15px;
+        margin-right: 10px;
+      }
+    }
+    .info_details_openTime {
+      line-height: 1.7;
+    }
+  }
+}
+
+.content {
+  background-color: $color-secondary;
+  padding: 34px 101px;
+
+  h3 {
+    font-size: $font-size-xxl;
+    color: $color-dark-50;
+    font-weight: bold;
+  }
+
+  article {
+    font-size: $font-size-md;
+    margin: 50px 0 67px;
+    line-height: 1.7;
+    letter-spacing: 1px;
+  }
+
+  p {
+    font-size: $font-size-lg;
+    font-weight: bold;
+    margin: 38px 0 30px;
+    color: #888888;
+  }
+
+  .search_by_type {
+    display: flex;
+    letter-spacing: 1px;
+    margin-bottom: 26px;
+
+    .search_by_type_btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-decoration: none;
+
+      &:hover .search_by_type_icon,
+      &:focus .search_by_type_icon {
+        background: rgba(69, 114, 227, 0.85);
+      }
+
+      &:hover .search_by_type_icon + span,
+      &:focus .search_by_type_icon + span {
+        color: rgba(69, 114, 227, 0.75);
+      }
+
+      .search_by_type_icon {
+        width: 70px;
+        height: 70px;
+        background: rgba(69, 114, 227, 1);
+        border-radius: 50%;
+        margin-bottom: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0px 4px 16px rgba(51, 51, 51, 0.2);
+
+        .fa-bed {
+          margin-left: 3px;
+        }
+      }
+
+      span {
+        color: rgba(69, 114, 227, 1);
+        font-size: $font-size-lg;
+        text-shadow: 0px 4px 16px rgba(51, 51, 51, 0.2);
+      }
+    }
+
+    .search_by_type_btn + .search_by_type_btn {
+      margin-left: 55px;
+    }
+  }
+
+  .map_section_details {
+    display: flex;
+    align-items: center;
+    // justify-content: space-between;
+    // padding-bottom: -140px;
+
+    .map_default {
+      margin-right: 117px;
+      background-color: #999;
+      position: relative;
+
+      &::before {
+        content: '地圖載入中...';
+        position: absolute;
+        top: 50%;
+        bottom: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #fff;
+        font-size: $font-size-xxl;
+      }
+    }
+
+    .card {
+      box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.25);
+      border-radius: 14px;
+      width: 366px;
+      height: 515px;
+      display: flex;
+      flex-direction: column;
+
+      &:hover .card_image > .card_description {
+        border-radius: 14px 14px 0 0;
+        // top: 0;
+        opacity: 1;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        transform: scale(1);
+      }
+
+      @include pad {
+        width: 45%;
+      }
+
+      @include mobile {
+        margin-bottom: 34px;
+        width: 140px;
+        width: 100%;
+      }
+
+      .card_image {
+        height: 251px;
+        border-radius: 14px 14px 0 0;
+        background: linear-gradient(
+          45deg,
+          rgba(47, 122, 140, 0.85),
+          rgba(47, 201, 255, 0.7)
+        );
+        position: relative;
+
+        @include pad {
+          height: 190px;
+        }
+
+        @include mobile {
+          height: 170px;
+        }
+
+        img {
+          border-radius: 14px 14px 0 0;
+          object-fit: cover;
+          width: 100%;
+          height: 251px;
+          display: block;
+          position: absolute;
+          z-index: 2;
+
+          @include pad {
+            height: 190px;
+          }
+
+          @include mobile {
+            height: 170px;
+          }
+
+          &::after {
+            content: 'Sorry! 無法顯示圖片';
+            position: absolute;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 95%;
+            font-size: 28px;
+            font-weight: bold;
+
+            @include pad {
+              font-size: $font-size-md;
+            }
+          }
+        }
+
+        .card_description {
+          position: absolute;
+          padding: 16px 30px;
+          // top: 0;
+          bottom: 0;
+          bottom: -30px;
+          height: 100%;
+          z-index: 3;
+          color: #efefef;
+          font-size: $font-size-lg;
+          line-height: 1.9;
+          -webkit-line-clamp: 6;
+          -webkit-box-orient: vertical;
+          display: -webkit-box;
+          overflow: hidden;
+          opacity: 0;
+          transform: scale(0);
+          // background-color: rgba(0, 0, 0, 0.5);
+          transition: 0.4s;
+
+          @include pad {
+            font-size: $font-size-sm;
+            line-height: 2;
+          }
+
+          @include mobile {
+            -webkit-line-clamp: 5;
+            line-height: 2.15;
+          }
+        }
+      }
+
+      .card_body {
+        padding: 18px 26px 32px;
+        color: $color-dark-50;
+        line-height: 1.2;
+      }
+
+      .card_header {
+        font-weight: 700;
+        font-size: $font-size-md;
+
+        @include mobile {
+          font-size: $font-size-xs;
+        }
+      }
+
+      .card_header_location .fa-map-marker-alt {
+        color: $color-danger;
+        margin-right: 12px;
+      }
+
+      .card_header_title {
+        margin-top: 15px;
+
+        @include mobile {
+          margin-top: 7px;
+        }
+      }
+
+      .card_phone {
+        margin-top: 18px;
+      }
+
+      .card_address {
+        margin-top: 15px;
+      }
+
+      .card_openTime {
+        h5 {
+          margin-top: 13px;
+          margin-bottom: 7px;
+
+          @include mobile {
+            margin-top: 5px;
+          }
+        }
+
+        .card_openTime_details {
+          line-height: 1.5;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+        }
+
+        @include mobile {
+          font-size: $font-size-xxs;
+        }
+      }
+    }
+
+    .noDataWarning {
+      border: 3px solid $color-primary;
+      border-radius: 14px;
+      background-color: $color-primary;
+      padding: 20px 50px;
+      font-size: $font-size-xxl;
+      font-weight: bold;
+      color: #fff;
+      cursor: pointer;
+      line-height: 1.5;
+      text-decoration: none;
+      @include btn-hover;
+    }
+  }
+}
+
+//officialSite------------
+.officialSite_section {
+  border: 1px solid #999;
+  border-radius: 14px;
+  margin-top: 60px;
+  color: $color-dark-50;
+  max-width: 100%;
+
+  caption {
+    text-align: center;
+    font-size: $font-size-xl;
+    font-weight: bold;
+    padding: 20px 10px;
+  }
+
+  table {
+    font-size: $font-size-md;
+    width: 100%;
+  }
+
+  thead {
+    border-bottom: 0.5px solid #999;
+
+    th:first-of-type,
+    th:last-of-type {
+      padding: 20px 15px;
+
+      width: 13%;
+    }
+    th:nth-of-type(2) {
+      max-width: 60%;
+    }
+  }
+
+  tbody {
+    tr + tr {
+      border-top: 1px solid #999;
+    }
+
+    td {
+      padding: 15px;
+      line-height: 1.5;
+    }
+  }
+}
+
+// 地圖
+.custom-popup-red .leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: rgba(255, 255, 255, 0.3);
+  // background:transparent;
+  box-shadow: none;
+  color: #cb2b3e !important;
+  font-size: $font-size-xl;
+  font-weight: bold;
+}
+
+.custom-popup-blue .leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: rgba(255, 255, 255, 0.15);
+  // background:transparent;
+  box-shadow: none;
+  color: #2a81cb;
+  font-size: $font-size-lg;
+  font-weight: bold;
+}
+
+.custom-popup-green .leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: none;
+  color: #31882a;
+  font-size: $font-size-lg;
+  font-weight: bold;
+}

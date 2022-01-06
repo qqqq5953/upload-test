@@ -1,0 +1,95 @@
+.pagination_wrapper {
+  padding: 0 50px 55px;
+
+  @include mobile {
+    padding: 0 50px 20px;
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  font-size: $font-size-xl;
+
+  @include mobile {
+    font-size: $font-size-sm;
+  }
+
+  & .page-item + .page-item {
+    margin-left: 30px;
+
+    @include mobile {
+      // outline:1px solid red;
+      margin-left: 10px;
+    }
+  }
+}
+
+.page-item-number {
+  @include desktop {
+    display: block;
+  }
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.page-item-number-mobile {
+  @include desktop {
+    display: none;
+  }
+
+  @include mobile {
+    display: block;
+  }
+}
+
+.page-item {
+  border: 1px solid #cbcbcb;
+  border-radius: 10px;
+  width: 63px;
+  height: 63px;
+
+  @include mobile {
+    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.page-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #000;
+
+  @include mobile {
+    border-radius: 5px;
+  }
+
+  &:not(.disable):hover {
+    background-color: $color-primary;
+    color: #fff;
+  }
+}
+
+.disabled-btn {
+  pointer-events: none;
+  background-color: rgba(215, 215, 215, 0.5);
+  color: #999;
+}
+
+.active-btn {
+  background-color: $color-primary;
+  color: #fff;
+}
+
+.d-none {
+  display: none;
+}

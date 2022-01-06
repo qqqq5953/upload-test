@@ -1,25 +1,55 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-import Home from '../views/Home.vue'
+import { createRouter, createWebHashHistory } from 'vue-router';
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'HomeTest',
+    component: () => import('../views/HomeTest.vue'),
+    children: [
+      // {
+      //   path: 'searchResult',
+      //   name: 'SearchResult',
+      //   component: () => import('../components/PopularSection.vue')
+      // }
+      // {
+      //   path: '/defaultResult',
+      //   name: 'DefaultResult',
+      //   component: () => import('../components/DefaultResult.vue')
+      // }
+    ]
+  },
+  {
+    path: '/:id',
+    name: 'RouteTest',
+    component: () => import('../views/RouteTest.vue'),
+    props: true
+  },
+  {
+    path: '/searchResult',
+    name: 'SearchResult',
+    component: () => import('../views/SearchResult.vue')
+    // component: () => import('../components/PopularSection.vue')
+  },
+  {
+    path: '/moreResult',
+    name: 'MoreResult',
+    component: () => import('../views/MoreResult.vue')
+  },
+  {
+    path: '/cardDetail',
+    name: 'CardDetail',
+    component: () => import('../views/CardDetailTest.vue')
   },
   {
     path: '/about',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: () => import('../views/About.vue')
   }
-]
+];
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes
-})
+});
 
-export default router
+export default router;
