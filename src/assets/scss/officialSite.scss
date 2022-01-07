@@ -1,0 +1,44 @@
+.officialSite_section {
+  border: 1px solid #999;
+  border-radius: 14px;
+  margin-top: 60px;
+  color: $color-dark-50;
+  max-width: 100%;
+
+  caption {
+    text-align: center;
+    font-size: $font-size-xl;
+    font-weight: bold;
+    padding: 20px 10px;
+  }
+
+  table {
+    font-size: $font-size-md;
+    width: 100%;
+  }
+
+  thead {
+    border-bottom: 0.5px solid #999;
+
+    th:first-of-type,
+    th:last-of-type {
+      padding: 20px 15px;
+
+      width: 13%;
+    }
+    th:nth-of-type(2) {
+      max-width: 60%;
+    }
+  }
+
+  tbody {
+    tr + tr {
+      border-top: 1px solid #999;
+    }
+
+    td {
+      padding: 15px;
+      line-height: 1.5;
+    }
+  }
+}

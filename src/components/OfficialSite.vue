@@ -27,3 +27,7 @@ export default {
   props: ['item']
 };
 </script>
+
+<style lang="scss" scoped>
+@import '@/assets/scss/officialSite.scss';
+</style>

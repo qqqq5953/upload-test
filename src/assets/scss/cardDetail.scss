@@ -95,14 +95,14 @@
       font-size: $font-size-lg;
       color: $color-dark-50;
       font-weight: bold;
-      margin-bottom: 20px;
+      margin-bottom: 5px;
     }
 
     .info_details_phone,
     .info_details_address,
     .info_details_openTime {
       font-size: $font-size-lg;
-      line-height: 1.2;
+      line-height: 1.5;
 
       a {
         // margin-left: 20px;
@@ -124,32 +124,32 @@
     .info_details_phone {
       input {
         display: none;
-        font-size: $font-size-lg;
         outline: none;
         border: none;
         appearance: none;
       }
 
+      span {
+        display: inline-block;
+        margin-bottom: 15px;
+        margin-right: 20px;
+      }
+
       a {
         display: inline-block;
-        padding: 8px 11px;
-        margin-left: 10px;
+        padding: 4px 11px;
       }
     }
 
     .info_details_address {
-      a {
-        padding: 8px;
-      }
-
       span {
         display: inline-block;
         margin-bottom: 15px;
-        margin-right: 10px;
+        margin-right: 20px;
       }
-    }
-    .info_details_openTime {
-      line-height: 1.7;
+      a {
+        padding: 8px;
+      }
     }
   }
 }
@@ -235,20 +235,36 @@
     // justify-content: space-between;
     // padding-bottom: -140px;
 
-    .map_default {
-      margin-right: 117px;
-      background-color: #999;
+    .map_wrap {
       position: relative;
+      // outline: 1px solid red;
 
-      &::before {
-        content: '地圖載入中...';
+      .noDataWarning {
+        // margin-top: 20px;
+        padding: 15px 20px;
+        background-color: #cb2b3e;
+        color: #efefef;
+        font-size: $font-size-lg;
         position: absolute;
-        top: 50%;
-        bottom: 50%;
-        left: 50%;
-        transform: translateX(-50%);
-        color: #fff;
-        font-size: $font-size-xxl;
+        right: 117px;
+        top: -60px;
+      }
+
+      .map_default {
+        margin-right: 117px;
+        background-color: #999;
+        position: relative;
+
+        &::before {
+          content: '地圖載入中...';
+          position: absolute;
+          top: 50%;
+          bottom: 50%;
+          left: 50%;
+          transform: translateX(-50%);
+          color: #fff;
+          font-size: $font-size-xxl;
+        }
       }
     }
 
@@ -423,64 +439,36 @@
       }
     }
 
-    .noDataWarning {
+    .hasOfficialSiteBtn {
       border: 3px solid $color-primary;
       border-radius: 14px;
       background-color: $color-primary;
-      padding: 20px 50px;
+
+      padding: 20px 25px;
+      margin-top: 30px;
+
       font-size: $font-size-xxl;
-      font-weight: bold;
+      line-height: 1.5;
+      letter-spacing: 1.5px;
       color: #fff;
-      cursor: pointer;
-      line-height: 1.5;
       text-decoration: none;
+      // text-align: center;
+
+      cursor: pointer;
+      align-self: flex-end;
+      width: 100%;
       @include btn-hover;
-    }
-  }
-}
 
-//officialSite------------
-.officialSite_section {
-  border: 1px solid #999;
-  border-radius: 14px;
-  margin-top: 60px;
-  color: $color-dark-50;
-  max-width: 100%;
+      .hasOfficialSiteText {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: bold;
+      }
 
-  caption {
-    text-align: center;
-    font-size: $font-size-xl;
-    font-weight: bold;
-    padding: 20px 10px;
-  }
-
-  table {
-    font-size: $font-size-md;
-    width: 100%;
-  }
-
-  thead {
-    border-bottom: 0.5px solid #999;
-
-    th:first-of-type,
-    th:last-of-type {
-      padding: 20px 15px;
-
-      width: 13%;
-    }
-    th:nth-of-type(2) {
-      max-width: 60%;
-    }
-  }
-
-  tbody {
-    tr + tr {
-      border-top: 1px solid #999;
-    }
-
-    td {
-      padding: 15px;
-      line-height: 1.5;
+      span {
+        font-size: $font-size-lg;
+      }
     }
   }
 }

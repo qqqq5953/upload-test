@@ -30,7 +30,7 @@
                 :value="defaultCardItem.Phone || '無'"
               />
               <div>
-                {{ defaultCardItem.Phone }}
+                <span>{{ defaultCardItem.Phone }}</span>
                 <a href="#" @click.prevent="copyToClipBoard"
                   ><i class="far fa-copy"></i
                 ></a>
@@ -100,18 +100,27 @@
 
         <!--地圖-->
         <section class="map_section_details">
-          <div
-            id="mapid"
-            class="map_default"
-            style="width: 755px; height: 487px"
-          ></div>
+          <div class="map_wrap">
+            <div
+              id="mapid"
+              class="map_default"
+              style="width: 755px; height: 487px"
+            ></div>
+            <div v-if="noDataWarning" class="noDataWarning">查無資料</div>
+            <!--  -->
+          </div>
           <a
             href="#officialSite_section"
-            class="noDataWarning"
-            v-if="noDataWarning"
+            class="hasOfficialSiteBtn"
+            v-if="hasOfficialSiteBtn"
             @click.prevent="showTable"
-            >查無資料!<br />查看官網活動 <i class="fas fa-chevron-down"></i
-          ></a>
+          >
+            <div class="hasOfficialSiteText">
+              更多官網活動
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <span>點擊並向下滾動</span>
+          </a>
           <Card :item="cardItem" v-if="isCardShown" :txt="temp">
             <template #card_phone="{ item }">
               <div class="card_phone">
@@ -129,7 +138,9 @@
             </template>
           </Card>
         </section>
+
         <OfficialSite
+          id="officialSite_section"
           :item="officialSiteData"
           v-if="isTableShown"
         ></OfficialSite>
@@ -203,6 +214,7 @@ export default {
       filteredDataByDistance: [],
       isCardShown: true,
       noDataWarning: false,
+      hasOfficialSiteBtn: false,
       isTableShown: false,
       // 暫存變數
       temp: ''
@@ -376,17 +388,24 @@ export default {
             longitude,
             this.latitude,
             this.longitude
-          ) <= 0.7
+          ) <= 1
         );
       });
 
       console.log('filteredDataByDistance', filteredDataByDistance);
 
-      // 如果沒有匹配的資料，顯示"查無資料"按鈕
-      if (!filteredDataByDistance.length || this.officialSiteData.length) {
+      // 如果沒有匹配的資料，顯示"查無資料"
+      if (!filteredDataByDistance.length) {
         this.noDataWarning = true;
       } else {
         this.noDataWarning = false;
+      }
+
+      // 如果有更多官網資訊資料，顯示"查看更多"按鈕
+      if (this.officialSiteData.length) {
+        this.hasOfficialSiteBtn = true;
+      } else {
+        this.hasOfficialSiteBtn = false;
       }
 
       return filteredDataByDistance;
@@ -413,7 +432,7 @@ export default {
 
       // 顯示卡片
       this.isCardShown = true;
-      this.noDataWarning = false;
+      this.hasOfficialSiteBtn = false;
 
       // 定位地圖 view 至點選位置
       this.mymap.flyTo(selectedPosition, 18);
@@ -589,7 +608,7 @@ export default {
     showDefaultCard() {
       console.log('showDefaultCard');
       this.isCardShown = true;
-      this.noDataWarning = false;
+      this.hasOfficialSiteBtn = false;
       this.cardItem = this.defaultCardItem;
     },
     showTable() {
