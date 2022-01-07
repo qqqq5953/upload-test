@@ -363,6 +363,16 @@ export default {
 
       return distance;
     },
+    nameFilter(data) {
+      const Name = data.ScenicSpotName
+        ? 'ScenicSpotName'
+        : data.RestaurantName
+        ? 'RestaurantName'
+        : data.HotelName
+        ? 'HotelName'
+        : 'ActivityName';
+      return Name;
+    },
     getDataByDistance(rawData) {
       const filteredDataByDistance = rawData.filter((data) => {
         // 如果活動是網站活動(可視情況增加條件 data.Location === "to see the official site")
@@ -373,11 +383,7 @@ export default {
         }
 
         // 如果 data 名字 等於 頁面標題，return
-        const Name = data.RestaurantName
-          ? 'RestaurantName'
-          : data.HotelName
-          ? 'HotelName'
-          : 'ActivityName';
+        const Name = this.nameFilter(data);
         if (data[Name] === this.defaultCardItem[this.Name]) return;
 
         const latitude = data.Position.PositionLat;
@@ -438,11 +444,7 @@ export default {
       this.mymap.flyTo(selectedPosition, 18);
 
       // 改變圖標顏色
-      const Name = { ...selectedSpot[0] }.RestaurantName
-        ? 'RestaurantName'
-        : { ...selectedSpot[0] }.HotelName
-        ? 'HotelName'
-        : 'ActivityName';
+      const Name = this.nameFilter({ ...selectedSpot[0] });
       this.changeCurrentMarkerColor(
         this.cardItem[Name],
         selectedPosition,
@@ -462,15 +464,11 @@ export default {
       filteredDataByDistance.forEach((data) => {
         const dataLatitude = data.Position.PositionLat;
         const dataLongitude = data.Position.PositionLon;
-        const dataName = data.RestaurantName
-          ? data.RestaurantName
-          : data.HotelName
-          ? data.HotelName
-          : data.ActivityName;
+        const dataName = this.nameFilter(data);
         const markerPopup = this.setMarkerPopup(
           dataLatitude,
           dataLongitude,
-          dataName,
+          data[dataName],
           this.blueIcon,
           this.showCard,
           'custom-popup-blue'
@@ -514,13 +512,9 @@ export default {
       );
 
       // 找到點選的圖標資料並將其從陣列geoArr移除
-      const selectedSpotName = selectedSpot.RestaurantName
-        ? 'RestaurantName'
-        : selectedSpot.HotelName
-        ? 'HotelName'
-        : 'ActivityName';
+      const Name = this.nameFilter(selectedSpot);
       const selectedItem = this.geoArr.filter(
-        (item) => item.name === selectedSpot[selectedSpotName]
+        (item) => item.name === selectedSpot[Name]
       );
       const index = this.geoArr.indexOf(selectedItem[0]);
       this.geoArr.splice(index, 1);
@@ -532,7 +526,7 @@ export default {
       this.removeLayer(selectedPopup);
 
       console.log('selectedSpot', selectedSpot);
-      console.log('selectedSpotName', selectedSpotName);
+      console.log('selectedSpotName', Name);
       console.log('selectedMarker', selectedMarker);
       console.log('selectedPopup', selectedPopup);
       console.log('selectedPopup._content', selectedPopup._content);
@@ -708,11 +702,7 @@ export default {
     this.cardItem = this.defaultCardItem;
 
     // 定義 defaultCardItem 的 Name 為何
-    this.Name = { ...this.defaultCardItem }.ScenicSpotName
-      ? 'ScenicSpotName'
-      : { ...this.defaultCardItem }.RestaurantName
-      ? 'RestaurantName'
-      : 'ActivityName';
+    this.Name = this.nameFilter({ ...this.defaultCardItem });
 
     this.getcityValue();
     this.getFoodDataByCity();

@@ -8,7 +8,8 @@
     ></Pagination> -->
     <!-- header原本是在app.vue -->
     <!-- <HeaderSection></HeaderSection> -->
-    <DefaultResult></DefaultResult>
+    <!-- <DefaultResult></DefaultResult> -->
+    <DefaultResultTest></DefaultResultTest>
     <!-- 用動態路由判斷 -->
     <!-- <router-view></router-view> -->
   </div>

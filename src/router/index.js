@@ -27,18 +27,23 @@ const routes = [
   {
     path: '/searchResult',
     name: 'SearchResult',
-    component: () => import('../views/SearchResult.vue')
-    // component: () => import('../components/PopularSection.vue')
+    component: () => import('../views/SearchResultTest.vue'),
+    props: route => {
+      console.log('route', route);
+      return {
+        q: route.query.q
+      };
+    }
   },
   {
     path: '/moreResult',
     name: 'MoreResult',
-    component: () => import('../views/MoreResult.vue')
+    component: () => import('../views/MoreResultTest.vue')
   },
   {
     path: '/cardDetail',
     name: 'CardDetail',
-    component: () => import('../views/CardDetailTest.vue')
+    component: () => import('../views/CardDetail.vue')
   },
   {
     path: '/about',

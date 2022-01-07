@@ -5,11 +5,11 @@
     :width="loaderWidth"
     :height="loaderHeight"
   ></Loading>
-  <HeaderSection></HeaderSection>
-  <PopularSection
+  <HeaderSectionTest></HeaderSectionTest>
+  <PopularSectionTest
     :data="moreResultData"
     resultType="MoreResult"
-  ></PopularSection>
+  ></PopularSectionTest>
 </template>
 
 <script>

@@ -18,8 +18,14 @@ import Card from '@/components/Card.vue';
 import Pagination from '@/components/Pagination.vue';
 
 import DefaultResult from '@/views/DefaultResult.vue';
-import SearchResult from '@/views/SearchResult.vue';
 import MoreResult from '@/views/MoreResult.vue';
+import MoreResultTest from '@/views/MoreResultTest.vue';
+
+import HeaderSectionTest from '@/components/HeaderSectionTest.vue';
+import FilterSectionTest from '@/components/FilterSectionTest.vue';
+import DefaultResultTest from '@/views/DefaultResultTest.vue';
+import PopularSectionTest from '@/components/PopularSectionTest.vue';
+import PaginationTest from '@/components/PaginationTest.vue';
 
 const emitter = mitt();
 const app = createApp(App);
@@ -28,16 +34,21 @@ app.use(router);
 app.config.globalProperties.emitter = emitter;
 
 app.component('HeaderSection', HeaderSection);
-app.component('Navbar', Navbar);
 app.component('FilterSection', FilterSection);
 app.component('PopularSection', PopularSection);
+app.component('Navbar', Navbar);
 app.component('Card', Card);
 app.component('MoreResult', MoreResult);
 app.component('Pagination', Pagination);
 
 app.component('DefaultResult', DefaultResult);
-app.component('SearchResult', SearchResult);
-
 app.component('Loading', Loading);
+
+app.component('HeaderSectionTest', HeaderSectionTest);
+app.component('FilterSectionTest', FilterSectionTest);
+app.component('DefaultResultTest', DefaultResultTest);
+app.component('PopularSectionTest', PopularSectionTest);
+app.component('PaginationTest', PaginationTest);
+app.component('MoreResultTest', MoreResultTest);
 
 app.mount('#app');

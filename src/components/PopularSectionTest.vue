@@ -7,13 +7,13 @@
     :width="loaderWidth"
     :height="loaderHeight"
   ></Loading>
-  <Pagination
-    v-if="resultType === 'MoreResult' || resultType === 'SearchResult'"
+  <PaginationTest
+    v-if="resultType === 'MoreResult' || resultType === 'resultType'"
     :current-page="currentPage"
     :total-pages="totalPages"
     @page-change="onPageChange"
     :resultType="resultType"
-  ></Pagination>
+  ></PaginationTest>
   <section class="card_section">
     <div class="card_section_title">
       <slot v-if="!searchTypeData" name="card_section_title_text"></slot>
@@ -57,7 +57,6 @@
 
 <script>
 export default {
-  // props: ['data', 'defaultType', 'resultType'],
   props: {
     data: {
       type: Array
@@ -98,6 +97,7 @@ export default {
     },
     setPageData(data) {
       console.log('執行 setPageData');
+      console.log('resultType', this.resultType);
 
       const page = this.currentPage;
       const perPage = this.cardPerPage;
@@ -155,6 +155,8 @@ export default {
   },
   async created() {
     console.log('PopulatSection created');
+    console.log('resultType', this.resultType);
+
     this.isLoading = true;
 
     // 接收篩選資料 from FilterSection.vue

@@ -59,6 +59,8 @@ export default {
       const cardItem = JSON.stringify({ ...this.item });
       const moreInfoBtnDnone = 'cardDetail';
       localStorage.setItem('passToCardDetails', cardItem);
+
+      // 讓 CardDetail 中的卡片不要有"查看更多"按鈕
       localStorage.setItem('moreInfoBtnDnone', moreInfoBtnDnone);
     }
   }
