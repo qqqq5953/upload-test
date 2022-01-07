@@ -5,7 +5,9 @@ import router from './router';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import mitt from 'mitt';
+import Loading from 'vue3-loading-overlay';
 
+import 'vue3-loading-overlay/dist/vue3-loading-overlay.css';
 import '@/assets/scss/reset.scss';
 
 import HeaderSection from '@/components/HeaderSection.vue';
@@ -20,8 +22,11 @@ import SearchResult from '@/views/SearchResult.vue';
 import MoreResult from '@/views/MoreResult.vue';
 
 const emitter = mitt();
-const app = createApp(App).use(VueAxios, axios).use(router);
+const app = createApp(App);
+app.use(VueAxios, axios);
+app.use(router);
 app.config.globalProperties.emitter = emitter;
+
 app.component('HeaderSection', HeaderSection);
 app.component('Navbar', Navbar);
 app.component('FilterSection', FilterSection);
@@ -32,5 +37,7 @@ app.component('Pagination', Pagination);
 
 app.component('DefaultResult', DefaultResult);
 app.component('SearchResult', SearchResult);
+
+app.component('Loading', Loading);
 
 app.mount('#app');

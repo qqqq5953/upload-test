@@ -1,6 +1,7 @@
 <template>
   <!-- <HeaderSection></HeaderSection> -->
   <!-- v-if="searchData" -->
+  <Loading :active="isLoading"></Loading>
   <Pagination
     v-if="resultType === 'MoreResult' || resultType === 'SearchResult'"
     :current-page="currentPage"
@@ -66,6 +67,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       searchData: null,
       searchTypeData: '',
       paginatedData: null,
@@ -155,10 +157,12 @@ export default {
 
     // 接收篩選資料 from FilterSection.vue
     this.emitter.on('filteredData', (data) => {
+      this.isLoading = true;
       this.searchData = data.filteredData;
       this.searchTypeData = data.filteredTypeData;
       console.log('emit on searchData', this.searchData);
       console.log('emit on searchTypeData', this.searchTypeData);
+      this.isLoading = false;
     });
     // this.emitter.on('filteredData', this.testHandler);
 

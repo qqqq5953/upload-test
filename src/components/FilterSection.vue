@@ -1,7 +1,8 @@
 <template>
   <!-- v-show="getMask" -->
+
   <div
-    class="mask outline"
+    class="mask loading_mask"
     style="
       background-color: rgba(0, 0, 0, 0.5);
       height: 100vh;
@@ -100,6 +101,7 @@ import JsSHA from 'jssha';
 
 export default {
   // props: ['getMask'],
+  emits: ['closeMask'],
   data() {
     return {
       regionData: [
@@ -216,6 +218,7 @@ export default {
       try {
         const placeResponse = await this.axios.get(this.placeUrl, this.config);
         this.filteredData = placeResponse.data;
+
         console.log('placeData', this.filteredData);
 
         // 傳送資料給 PopularSection.vue
@@ -230,10 +233,7 @@ export default {
         this.filteredData = foodResponse.data;
 
         // 傳送資料給 PopularSection.vue
-        this.emitter.emit('filteredData', {
-          filteredData: this.filteredData,
-          filteredTypeData: '熱門美食'
-        });
+        this.emitter.emit('filteredData', this.emitFunc('熱門美食'));
 
         console.log('foodData', this.filteredData);
       } catch (error) {
@@ -246,11 +246,7 @@ export default {
         this.filteredData = eventResponse.data;
 
         // 傳送資料給 PopularSection.vue
-        this.emitter.emit('filteredData', {
-          filteredData: this.filteredData,
-          filteredTypeData: '近期活動'
-        });
-
+        this.emitter.emit('filteredData', this.emitFunc('近期活動'));
         console.log('eventData', this.filteredData);
       } catch (error) {
         console.log(error);

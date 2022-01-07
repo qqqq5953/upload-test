@@ -1,7 +1,12 @@
 <template>
+  <Loading
+    :active="isLoading"
+    :color="loaderColor"
+    :width="loaderWidth"
+    :height="loaderHeight"
+  ></Loading>
   <header class="header">
     <Navbar></Navbar>
-
     <section class="banner">
       <h2 class="banner_title">尋找台灣</h2>
       <h3 class="banner_subtitle">景點、活動、美食</h3>
@@ -47,51 +52,94 @@
 </template>
 
 <script>
-import JsSHA from 'jssha';
+// import JsSHA from 'jssha';
+import getDataMixin from '@/mixins/getDataMixin.js';
 
 export default {
   // props: ['allData'],
+  mixins: [getDataMixin],
+
   data() {
     return {
-      hasMask: false,
-      temp: '',
-      search: '',
+      // API
+      config: { headers: this.GetAuthorizationHeader() },
+      placeData: [],
+      foodData: [],
+      eventData: [],
       allData: [],
       placeUrl:
-        'https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot/Taipei?&$format=JSON',
+        'https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot/?&$format=JSON',
       foodUrl:
-        'https://ptx.transportdata.tw/MOTC/v2/Tourism/Restaurant/Taipei?&$format=JSON',
+        'https://ptx.transportdata.tw/MOTC/v2/Tourism/Restaurant/?&$format=JSON',
       eventUrl:
-        'https://ptx.transportdata.tw/MOTC/v2/Tourism/Activity/Taipei?&$format=JSON'
+        'https://ptx.transportdata.tw/MOTC/v2/Tourism/Activity/?&$format=JSON',
+      // Loader
+      isLoading: false,
+      loaderColor: 'rgba(47, 121, 140, 1)',
+      loaderWidth: 150,
+      loaderHeight: 150,
+      // other
+      hasMask: false,
+      temp: '',
+      search: ''
     };
   },
   methods: {
     changeMaskStatus() {
       this.hasMask = !this.hasMask;
-      this.emitter.emit('activate-loading', this.hasMask);
+      // this.emitter.emit('activate-loading', this.hasMask);
     },
-    async getAllData() {
-      try {
-        const urlArr = [this.placeUrl, this.foodUrl, this.eventUrl];
-        const responseArr = [];
-        for (let i = 0; i < urlArr.length; i++) {
-          const response = await this.axios.get(urlArr[i], this.config);
-          responseArr.push(...response.data);
-        }
-        this.allData = [...responseArr];
-        // console.log('responseArr', responseArr);
-        // console.log('this.allData', this.allData);
-      } catch (error) {
-        console.log(error);
-      }
-    },
+    // async getPlaceData() {
+    //   try {
+    //     const placeResponse = await this.axios.get(this.placeUrl, this.config);
+    //     return placeResponse;
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // },
+    // async getFoodData() {
+    //   let foodResponse = null;
+    //   try {
+    //     foodResponse = await this.axios.get(this.foodUrl, this.config);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    //   return foodResponse;
+    // },
+    // async getEventData() {
+    //   let eventResponse = null;
+    //   try {
+    //     eventResponse = await this.axios.get(this.eventUrl, this.config);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    //   return eventResponse;
+    // },
+    // async getAllData() {
+    //   try {
+    //     this.isLoading = true;
+
+    //     await Promise.all([
+    //       this.getPlaceData(),
+    //       this.getFoodData(),
+    //       this.getEventData()
+    //     ]).then((res) => {
+    //       this.isLoading = false;
+    //       this.placeData = res[0].data;
+    //       this.foodData = res[1].data;
+    //       this.eventData = res[2].data;
+    //     });
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // },
     async searchBtn() {
       console.log('searchBtn');
       this.$router.push({ name: 'SearchResult' });
 
       if (this.search === '') return;
-
       await this.getAllData();
+      this.allData = [...this.placeData, ...this.foodData, ...this.eventData];
 
       const searchData = this.allData.filter((data) => {
         const name = data.ScenicSpotName
@@ -107,27 +155,27 @@ export default {
       this.emitter.emit('searchData', { searchData, title: '搜尋結果' });
 
       this.search = '';
-    },
-    GetAuthorizationHeader() {
-      const AppID = '096409078e0c483f87d2ae7551b214ea';
-      const AppKey = '4s6NU76FhxsKZGCH06RzkVnXoSk';
-
-      const GMTString = new Date().toGMTString();
-      const ShaObj = new JsSHA('SHA-1', 'TEXT');
-      ShaObj.setHMACKey(AppKey, 'TEXT');
-      ShaObj.update('x-date: ' + GMTString);
-      const HMAC = ShaObj.getHMAC('B64');
-      const Authorization =
-        'hmac username="' +
-        AppID +
-        '", algorithm="hmac-sha1", headers="x-date", signature="' +
-        HMAC +
-        '"';
-      return {
-        Authorization: Authorization,
-        'X-Date': GMTString
-      };
     }
+    // GetAuthorizationHeader() {
+    //   const AppID = '096409078e0c483f87d2ae7551b214ea';
+    //   const AppKey = '4s6NU76FhxsKZGCH06RzkVnXoSk';
+
+    //   const GMTString = new Date().toGMTString();
+    //   const ShaObj = new JsSHA('SHA-1', 'TEXT');
+    //   ShaObj.setHMACKey(AppKey, 'TEXT');
+    //   ShaObj.update('x-date: ' + GMTString);
+    //   const HMAC = ShaObj.getHMAC('B64');
+    //   const Authorization =
+    //     'hmac username="' +
+    //     AppID +
+    //     '", algorithm="hmac-sha1", headers="x-date", signature="' +
+    //     HMAC +
+    //     '"';
+    //   return {
+    //     Authorization: Authorization,
+    //     'X-Date': GMTString
+    //   };
+    // }
   },
   created() {
     // this.getAllData();

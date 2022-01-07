@@ -64,3 +64,9 @@ $color-danger: rgba(203, 69, 57, 1);
 @mixin btn-pill {
   border-radius: 100px;
 }
+
+body,
+html {
+  height: 100%;
+  outline: 1px solid red;
+}
