@@ -7,8 +7,8 @@
     :width="loaderWidth"
     :height="loaderHeight"
   ></Loading>
+  <!-- v-if="resultType === 'MoreResult' || resultType === 'resultType'" -->
   <PaginationTest
-    v-if="resultType === 'MoreResult' || resultType === 'resultType'"
     :current-page="currentPage"
     :total-pages="totalPages"
     @page-change="onPageChange"

@@ -2,10 +2,10 @@
   <!--分頁按鈕-->
   <nav class="pagination_wrapper">
     <ul class="pagination">
-      <!--First-->
+      <!--First :to="{ name: resultType }"-->
       <li class="page-item" @click="onFirstPage()">
         <router-link
-          :to="{ name: resultType }"
+          :to="`${resultType}`"
           class="page-link"
           :class="{ 'disabled-btn': currentPage === 1 }"
           href="#"
@@ -17,7 +17,7 @@
       <!--Prev-->
       <li class="page-item" @click="onPreviousPage()">
         <router-link
-          :to="{ name: resultType }"
+          :to="`${resultType}`"
           class="page-link"
           :class="{ 'disabled-btn': currentPage === 1 }"
           href="#"
@@ -29,7 +29,7 @@
       <!--數字 :class="{ 'd-none': !searchStatus }"  MoreResult-->
       <li class="page-item page-item-number" v-for="page in pages" :key="page">
         <router-link
-          :to="{ name: resultType }"
+          :to="`${resultType}`"
           class="page-link"
           :class="{ 'active-btn': page.isActive }"
           href="#"
@@ -41,7 +41,7 @@
       <!--Next-->
       <li class="page-item" @click="onNextPage()">
         <router-link
-          :to="{ name: resultType }"
+          :to="`${resultType}`"
           class="page-link"
           :class="{ 'disabled-btn': currentPage === totalPages }"
           href="#"
@@ -53,7 +53,7 @@
       <!--Last-->
       <li class="page-item" @click="onLastPage()">
         <router-link
-          :to="{ name: resultType }"
+          :to="`${resultType}`"
           class="page-link"
           :class="{ 'disabled-btn': currentPage === totalPages }"
           href="#"
@@ -75,7 +75,7 @@
         @click="onCurrentPage(page.num)"
       >
         <router-link
-          :to="{ name: resultType }"
+          :to="`${resultType}`"
           class="page-link"
           :class="{ 'active-btn': page.isActive }"
           href="#"
@@ -158,7 +158,7 @@ export default {
     }
   },
   created() {
-    // console.log('resultType', this.resultType);
+    console.log('pagination resultType', this.resultType);
   }
 };
 </script>

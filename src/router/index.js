@@ -31,7 +31,7 @@ const routes = [
     props: route => {
       console.log('route', route);
       return {
-        q: route.query.q
+        inputKeywords: route.query.q
       };
     }
   },

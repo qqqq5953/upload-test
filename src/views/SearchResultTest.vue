@@ -1,9 +1,14 @@
 <template>
+  <Loading
+    :active="isLoading"
+    :color="loaderColor"
+    :width="loaderWidth"
+    :height="loaderHeight"
+  ></Loading>
   <HeaderSectionTest></HeaderSectionTest>
-  <h1>之後搜尋：{{ keywords }}</h1>
   <PopularSectionTest
     :data="searchedData"
-    :resultType="`SearchResult?q=${keywords}`"
+    :resultType="path"
   ></PopularSectionTest>
 </template>
 
@@ -28,7 +33,12 @@ export default {
       allData: [],
       searchedData: null,
       keywords: '',
-      path: ''
+      path: '',
+      // Loader
+      isLoading: false,
+      loaderWidth: 150,
+      loaderHeight: 150,
+      loaderColor: 'rgba(47, 121, 140, 1)'
     };
   },
   methods: {
@@ -108,27 +118,41 @@ export default {
       };
     }
   },
-  props: ['q'],
+  props: ['inputKeywords'],
   watch: {
-    q() {
+    inputKeywords() {
       console.log('keywords 變動');
+
+      // 傳入的關鍵字放入 keywords
+      this.keywords = this.inputKeywords;
+
+      // 將關鍵字與資料庫比對
+      this.matchKeywords(this.allData, this.keywords);
+
+      // 讀取當前頁面路徑，並傳進 PopularSection.vue
       this.path = this.$route.fullPath;
       console.log('path', this.path);
-
-      this.keywords = this.q;
-      this.matchKeywords(this.allData, this.keywords);
     }
   },
   async created() {
+    this.isLoading = true;
+
+    // API
     await this.getAllData();
     this.allData = [...this.placeData, ...this.foodData, ...this.eventData];
-    this.keywords = this.q;
 
+    // 傳入的關鍵字放入 keywords
+    this.keywords = this.inputKeywords;
+
+    // 將關鍵字與資料庫比對
     this.matchKeywords(this.allData, this.keywords);
     console.log('searchedData', this.searchedData);
 
+    // 讀取當前頁面路徑，並傳進 PopularSection.vue
     this.path = this.$route.fullPath;
     console.log('path', this.path);
+
+    this.isLoading = false;
   }
 };
 </script>

@@ -18,8 +18,6 @@
             v-model.trim="search"
             @keyup.enter="searchBtn"
           />
-          <!-- this.$router.push({ name: 'SearchResult' }); -->
-
           <i class="fas fa-lg fa-search"></i>
         </div>
         <button
@@ -33,7 +31,6 @@
           <span class="banner_filterText">篩選</span>
         </button>
       </div>
-      <router-link :to="{ name: 'SearchResult' }">
         <input
           type="button"
           class="banner_searchBtn"
@@ -41,7 +38,6 @@
           value="搜尋"
           :disabled="!this.search"
         />
-      </router-link>
       <!-- :get-mask="hasMask" -->
       <FilterSectionTest
         v-if="hasMask"

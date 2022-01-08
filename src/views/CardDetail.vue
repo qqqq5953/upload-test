@@ -375,15 +375,16 @@ export default {
     },
     getDataByDistance(rawData) {
       const filteredDataByDistance = rawData.filter((data) => {
+        const Name = this.nameFilter(data);
+
         // 如果活動是網站活動(可視情況增加條件 data.Location === "to see the official site")
-        if (!data.Address) {
+        if (!data.Address && Name === 'ActivityName') {
           this.officialSiteData.push(data);
           console.log('this.officialSiteData', this.officialSiteData);
           return;
         }
 
         // 如果 data 名字 等於 頁面標題，return
-        const Name = this.nameFilter(data);
         if (data[Name] === this.defaultCardItem[this.Name]) return;
 
         const latitude = data.Position.PositionLat;
