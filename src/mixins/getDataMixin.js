@@ -12,28 +12,26 @@ export default {
     async getPlaceData() {
       try {
         const placeResponse = await this.axios.get(this.placeUrl, this.config);
-        return placeResponse;
+        return placeResponse.data;
       } catch (error) {
         console.log(error);
       }
     },
     async getFoodData() {
-      let foodResponse = null;
       try {
-        foodResponse = await this.axios.get(this.foodUrl, this.config);
+        const foodResponse = await this.axios.get(this.foodUrl, this.config);
+        return foodResponse.data;
       } catch (error) {
         console.log(error);
       }
-      return foodResponse;
     },
     async getEventData() {
-      let eventResponse = null;
       try {
-        eventResponse = await this.axios.get(this.eventUrl, this.config);
+        const eventResponse = await this.axios.get(this.eventUrl, this.config);
+        return eventResponse.data;
       } catch (error) {
         console.log(error);
       }
-      return eventResponse;
     },
     async getAllData() {
       try {
@@ -46,9 +44,9 @@ export default {
         ]).then((res) => {
           this.isLoading = false;
 
-          this.placeData = res[0].data;
-          this.foodData = res[1].data;
-          this.eventData = res[2].data;
+          this.placeData = res[0];
+          this.foodData = res[1];
+          this.eventData = res[2];
         });
       } catch (error) {
         console.log(error);

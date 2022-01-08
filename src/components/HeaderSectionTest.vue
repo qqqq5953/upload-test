@@ -65,49 +65,17 @@ export default {
   methods: {
     changeMaskStatus() {
       this.hasMask = !this.hasMask;
-      // this.emitter.emit('activate-loading', this.hasMask);
     },
     async searchBtn() {
       console.log('searchBtn');
 
       if (this.search === '') return;
 
-      // console.log('search', keywords);
-      // localStorage.setItem('keywords', keywords);
-
-      // 傳送資料到 PopularSection.vue
-      // this.emitter.emit('searchData', { searchData, title: '搜尋結果' });
+      // 傳送資料到 SearchSection.vue
       this.$router.push({ name: 'SearchResult', query: { q: this.search } });
 
       this.search = '';
     }
-    // GetAuthorizationHeader() {
-    //   const AppID = '096409078e0c483f87d2ae7551b214ea';
-    //   const AppKey = '4s6NU76FhxsKZGCH06RzkVnXoSk';
-
-    //   const GMTString = new Date().toGMTString();
-    //   const ShaObj = new JsSHA('SHA-1', 'TEXT');
-    //   ShaObj.setHMACKey(AppKey, 'TEXT');
-    //   ShaObj.update('x-date: ' + GMTString);
-    //   const HMAC = ShaObj.getHMAC('B64');
-    //   const Authorization =
-    //     'hmac username="' +
-    //     AppID +
-    //     '", algorithm="hmac-sha1", headers="x-date", signature="' +
-    //     HMAC +
-    //     '"';
-    //   return {
-    //     Authorization: Authorization,
-    //     'X-Date': GMTString
-    //   };
-    // }
-  },
-  created() {
-    // this.getAllData();
-  },
-  beforeUnmount() {
-    console.log('HeaderSection beforeUnmont');
-    // this.emitter.off('searchData');
   }
 };
 </script>

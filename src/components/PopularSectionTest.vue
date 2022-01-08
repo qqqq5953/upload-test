@@ -7,29 +7,29 @@
     :width="loaderWidth"
     :height="loaderHeight"
   ></Loading>
-  <!-- v-if="resultType === 'MoreResult' || resultType === 'resultType'" -->
   <PaginationTest
+    v-if="!defaultType"
     :current-page="currentPage"
     :total-pages="totalPages"
     @page-change="onPageChange"
-    :resultType="resultType"
+    :resultPath="resultPath"
   ></PaginationTest>
   <section class="card_section">
     <div class="card_section_title">
-      <slot v-if="!searchTypeData" name="card_section_title_text"></slot>
-      <div>{{ searchTypeData }}</div>
+      <slot v-if="!touristType" name="card_section_title_text"></slot>
+      <div>{{ touristType }}</div>
       <img
-        v-if="searchTypeData === '熱門景點'"
+        v-if="touristType === 'ScenicSpot'"
         src="@/assets/images/place-icon.png"
         alt="place-icon"
       />
       <img
-        v-else-if="searchTypeData === '熱門美食'"
+        v-else-if="touristType === 'Restaurant'"
         src="@/assets/images/restaurant-icon.png"
         alt="restaurant-icon"
       />
       <img
-        v-else-if="searchTypeData === '近期活動'"
+        v-else-if="touristType === 'Activity'"
         src="@/assets/images/event-icon.png"
         alt="event-icon"
       />
@@ -64,7 +64,10 @@ export default {
     defaultType: {
       type: String
     },
-    resultType: {
+    touristType: {
+      type: String
+    },
+    resultPath: {
       type: String,
       default: 'SearchResult'
     }
@@ -96,8 +99,8 @@ export default {
       this.totalPages = Math.ceil(data.length / this.cardPerPage);
     },
     setPageData(data) {
-      console.log('執行 setPageData');
-      console.log('resultType', this.resultType);
+      // console.log('執行 setPageData');
+      // console.log('resultPath', this.resultPath);
 
       const page = this.currentPage;
       const perPage = this.cardPerPage;
@@ -120,12 +123,14 @@ export default {
   },
   watch: {
     data() {
-      // this.paginatedData = this.data;
-      this.paginatedData = this.setPageData(this.data);
+      // 設置分頁按鈕
       this.setPageButton(this.data);
+
+      // 當篩選或搜尋資料完成時，賦值給 PpaginatedData
+      this.paginatedData = this.setPageData(this.data);
+
       // 重設起始頁面
       this.currentPage = 1;
-      // console.log('paginatedData - watch data', this.paginatedData);
     },
     currentPage() {
       // 當所在頁面變動時，重新賦值給 paginatedData
@@ -141,49 +146,7 @@ export default {
       console.log('執行正常');
       this.paginatedData = this.setPageData(this.searchData);
       console.log('paginatedData - currentPage', this.paginatedData);
-    },
-    searchData() {
-      console.log('searchData 有變動');
-
-      // 重設起始頁面
-      this.currentPage = 1;
-
-      // 設置分頁按鈕
-      this.setPageButton(this.searchData);
-
-      // 當篩選或搜尋資料完成時，賦值給 PpaginatedData
-      this.paginatedData = this.setPageData(this.searchData);
     }
-  },
-  async created() {
-    console.log('PopulatSection created');
-    console.log('resultType', this.resultType);
-
-    this.isLoading = true;
-
-    // 接收篩選資料 from FilterSection.vue
-    await this.emitter.on('filteredData', (data) => {
-      this.searchData = data.filteredData;
-      this.searchTypeData = data.filteredTypeData;
-      console.log('emit on searchData', this.searchData);
-      console.log('emit on searchTypeData', this.searchTypeData);
-    });
-
-    // 接收搜尋資料 from HeaderSection.vue
-    await this.emitter.on('searchData', (data) => {
-      this.searchData = data.searchData;
-      this.searchTypeData = data.title;
-      console.log('emit on searchData 的 searchData', this.searchData);
-      console.log('emit on searchData 的 searchTypeData', this.searchTypeData);
-    });
-
-    this.isLoading = false;
-  },
-  beforeUnmount() {
-    console.log('PopularSection beforeUnmont');
-
-    this.emitter.off('filteredData');
-    this.emitter.off('searchData');
   }
 };
 </script>

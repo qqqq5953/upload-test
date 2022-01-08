@@ -83,10 +83,7 @@
       <input
         type="button"
         class="banner_filterForm_searchBtn"
-        @click="
-          closeMask();
-          sendFilterData();
-        "
+        @click="sendFilterData"
         value="搜尋"
         ref="filterBtn"
       />
@@ -95,10 +92,7 @@
 </template>
 
 <script>
-import JsSHA from 'jssha';
-
 export default {
-  // props: ['getMask'],
   emits: ['closeMask'],
   data() {
     return {
@@ -167,133 +161,30 @@ export default {
       dropdownsOpen: [],
       regionArea: [],
       dropdownsNoText: [],
-      dropdownsHasText: [],
+      dropdownsHasText: []
       // handler: {
       //   click: [this.closeMask, this.sendFilterData],
       //   'keyup.enter': [this.closeMask, this.sendFilterData]
-      // },
-      // popularSection測試
-      filteredTypeData: '',
-      filteredCityData: '',
-      filteredData: [],
-      config: { headers: this.GetAuthorizationHeader() }
+      // }
     };
   },
-  computed: {
-    placeUrl() {
-      return `https://ptx.transportdata.tw/MOTC/v2/Tourism/${this.filteredTypeData}/${this.filteredCityData}?&$format=JSON`;
-    },
-    foodUrl() {
-      return `https://ptx.transportdata.tw/MOTC/v2/Tourism/${this.filteredTypeData}/${this.filteredCityData}?&$format=JSON`;
-    },
-    eventUrl() {
-      return `https://ptx.transportdata.tw/MOTC/v2/Tourism/${this.filteredTypeData}/${this.filteredCityData}?&$format=JSON`;
-    }
-  },
-  // watch: {
-  //   filteredCityData() {
-  //     if (this.filteredTypeData === 'ScenicSpot') {
-  //       this.getPlaceData();
-  //       console.log('開始抓資料');
-  //     }
-  //     if (this.filteredTypeData === 'Restaurant') {
-  //       this.getFoodData();
-  //       console.log('開始抓資料');
-  //     }
-  //     if (this.filteredTypeData === 'Activity') {
-  //       this.getEventData();
-  //       console.log('開始抓資料');
-  //     }
-  //   }
-  // },
   methods: {
     closeMask() {
       console.log('關閉');
       // 到 HeaderSection.vue
       this.$emit('closeMask');
     },
-    async getPlaceData() {
-      try {
-        const placeResponse = await this.axios.get(this.placeUrl, this.config);
-        this.filteredData = placeResponse.data;
-
-        console.log('placeData', this.filteredData);
-
-        // 傳送資料給 PopularSection.vue
-        // this.emitter.emit('filteredData', this.emitFunc('熱門景點'));
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    async getFoodData() {
-      try {
-        const foodResponse = await this.axios.get(this.foodUrl, this.config);
-        this.filteredData = foodResponse.data;
-
-        // 傳送資料給 PopularSection.vue
-        // this.emitter.emit('filteredData', this.emitFunc('熱門美食'));
-
-        console.log('foodData', this.filteredData);
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    async getEventData() {
-      try {
-        const eventResponse = await this.axios.get(this.eventUrl, this.config);
-        this.filteredData = eventResponse.data;
-
-        // 傳送資料給 PopularSection.vue
-        // this.emitter.emit('filteredData', this.emitFunc('近期活動'));
-        console.log('eventData', this.filteredData);
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    emitFunc(type) {
-      const emitObj = {
-        filteredData: this.filteredData,
-        filteredTypeData: type
-      };
-      return emitObj;
-    },
-    GetAuthorizationHeader() {
-      const AppID = '096409078e0c483f87d2ae7551b214ea';
-      const AppKey = '4s6NU76FhxsKZGCH06RzkVnXoSk';
-
-      const GMTString = new Date().toGMTString();
-      const ShaObj = new JsSHA('SHA-1', 'TEXT');
-      ShaObj.setHMACKey(AppKey, 'TEXT');
-      ShaObj.update('x-date: ' + GMTString);
-      const HMAC = ShaObj.getHMAC('B64');
-      const Authorization =
-        'hmac username="' +
-        AppID +
-        '", algorithm="hmac-sha1", headers="x-date", signature="' +
-        HMAC +
-        '"';
-      return {
-        Authorization: Authorization,
-        'X-Date': GMTString
-      };
-    },
     sendFilterData() {
-      this.filteredTypeData = this.selectedType.value;
-      this.filteredCityData = this.selectedCityValue;
+      if (!this.selectedCityValue) return;
 
-      console.log('filteredTypeData', this.filteredTypeData);
-      console.log('filteredCityData', this.filteredCityData);
-
+      this.closeMask();
       this.$router.push({
         name: 'SearchResult',
-        query: { type: this.filteredTypeData, city: this.filteredCityData }
+        query: { type: this.selectedType.value, city: this.selectedCityValue }
       });
 
       this.resetFilter();
-
-      // this.changeSearchSectionStatus();
     },
-    // 原來的
     selectPopularType(type) {
       this.selectedType = type;
 
