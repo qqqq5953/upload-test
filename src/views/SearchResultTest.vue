@@ -6,6 +6,9 @@
     :height="loaderHeight"
   ></Loading>
   <HeaderSectionTest></HeaderSectionTest>
+  <!-- filteredType: {{ filteredType }} -->
+  <br />
+  <!-- filteredCity: {{ filteredCity }} -->
   <PopularSectionTest
     :data="searchedData"
     :resultType="path"
@@ -21,17 +24,19 @@ export default {
   data() {
     return {
       config: { headers: this.GetAuthorizationHeader() },
-      placeUrl:
-        'https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot/?&$format=JSON',
-      foodUrl:
-        'https://ptx.transportdata.tw/MOTC/v2/Tourism/Restaurant/?&$format=JSON',
-      eventUrl:
-        'https://ptx.transportdata.tw/MOTC/v2/Tourism/Activity/?&$format=JSON',
+      // placeUrl:
+      //   'https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot/?&$format=JSON',
+      // foodUrl:
+      //   'https://ptx.transportdata.tw/MOTC/v2/Tourism/Restaurant/?&$format=JSON',
+      // eventUrl:
+      //   'https://ptx.transportdata.tw/MOTC/v2/Tourism/Activity/?&$format=JSON',
       placeData: [],
       foodData: [],
       eventData: [],
       allData: [],
-      searchedData: null,
+      searchedData: [],
+      filteredType: '',
+      filteredCity: '',
       keywords: '',
       path: '',
       // Loader
@@ -41,11 +46,22 @@ export default {
       loaderColor: 'rgba(47, 121, 140, 1)'
     };
   },
+  computed: {
+    placeUrl() {
+      return `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot/${this.filteredCity}?&$format=JSON`;
+    },
+    foodUrl() {
+      return `https://ptx.transportdata.tw/MOTC/v2/Tourism/Restaurant/${this.filteredCity}?&$format=JSON`;
+    },
+    eventUrl() {
+      return `https://ptx.transportdata.tw/MOTC/v2/Tourism/Activity/${this.filteredCity}?&$format=JSON`;
+    }
+  },
   methods: {
     async getPlaceData() {
       try {
         const placeResponse = await this.axios.get(this.placeUrl, this.config);
-        return placeResponse;
+        return placeResponse.data;
       } catch (error) {
         console.log(error);
       }
@@ -57,7 +73,7 @@ export default {
       } catch (error) {
         console.log(error);
       }
-      return foodResponse;
+      return foodResponse.data;
     },
     async getEventData() {
       let eventResponse = null;
@@ -66,7 +82,7 @@ export default {
       } catch (error) {
         console.log(error);
       }
-      return eventResponse;
+      return eventResponse.data;
     },
     async getAllData() {
       try {
@@ -79,13 +95,21 @@ export default {
         ]).then((res) => {
           this.isLoading = false;
 
-          this.placeData = res[0].data;
-          this.foodData = res[1].data;
-          this.eventData = res[2].data;
+          this.placeData = res[0];
+          this.foodData = res[1];
+          this.eventData = res[2];
         });
       } catch (error) {
         console.log(error);
       }
+    },
+    async processSearchData() {
+      // API
+      await this.getAllData();
+      this.allData = [...this.placeData, ...this.foodData, ...this.eventData];
+
+      // 將關鍵字與資料庫比對
+      this.matchKeywords(this.allData, this.inputKeywords);
     },
     matchKeywords(database, keywords) {
       this.searchedData = database.filter((data) => {
@@ -96,6 +120,7 @@ export default {
           : data.ActivityName;
         return name.match(keywords);
       });
+      console.log('searchedData', this.searchedData);
     },
     GetAuthorizationHeader() {
       const AppID = '096409078e0c483f87d2ae7551b214ea';
@@ -118,41 +143,58 @@ export default {
       };
     }
   },
-  props: ['inputKeywords'],
+  props: ['inputKeywords', 'type', 'city'],
   watch: {
     inputKeywords() {
-      console.log('keywords 變動');
-
-      // 傳入的關鍵字放入 keywords
-      this.keywords = this.inputKeywords;
+      console.log('inputKeywords 變動', this.inputKeywords);
 
       // 將關鍵字與資料庫比對
-      this.matchKeywords(this.allData, this.keywords);
+      this.matchKeywords(this.allData, this.inputKeywords);
 
       // 讀取當前頁面路徑，並傳進 PopularSection.vue
       this.path = this.$route.fullPath;
-      console.log('path', this.path);
+      console.log('watch path', this.path);
+    },
+    async city() {
+      console.log('city 變動', this.city);
+
+      // 重新篩選後，將變數重新賦值
+      this.filteredCity = this.city;
+      this.filteredType = this.type;
+
+      // 重新篩選後，讀取當前頁面路徑，並傳進 PopularSection.vue
+      this.path = this.$route.fullPath;
+    },
+    async filteredCity() {
+      this.isLoading = true;
+
+      // 根據不同類型，抓取相對應資料
+      if (this.filteredType === 'ScenicSpot') {
+        this.searchedData = await this.getPlaceData();
+      }
+      if (this.filteredType === 'Restaurant') {
+        this.searchedData = await this.getFoodData();
+        console.log('開始抓資料');
+      }
+      if (this.filteredType === 'Activity') {
+        this.searchedData = await this.getEventData();
+        console.log('開始抓資料');
+      }
+
+      this.isLoading = false;
     }
   },
   async created() {
-    this.isLoading = true;
+    // 搜尋：關鍵字傳入，開始處理資料
+    this.inputKeywords && (await this.processSearchData());
 
-    // API
-    await this.getAllData();
-    this.allData = [...this.placeData, ...this.foodData, ...this.eventData];
-
-    // 傳入的關鍵字放入 keywords
-    this.keywords = this.inputKeywords;
-
-    // 將關鍵字與資料庫比對
-    this.matchKeywords(this.allData, this.keywords);
-    console.log('searchedData', this.searchedData);
+    // 篩選：旅遊類型及城市傳入，watch filteredCity
+    this.filteredType = this.type;
+    this.filteredCity = this.city;
 
     // 讀取當前頁面路徑，並傳進 PopularSection.vue
     this.path = this.$route.fullPath;
-    console.log('path', this.path);
-
-    this.isLoading = false;
+    console.log('created path', this.path);
   }
 };
 </script>

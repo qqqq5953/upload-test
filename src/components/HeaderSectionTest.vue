@@ -107,7 +107,7 @@ export default {
   },
   beforeUnmount() {
     console.log('HeaderSection beforeUnmont');
-    this.emitter.off('searchData');
+    // this.emitter.off('searchData');
   }
 };
 </script>

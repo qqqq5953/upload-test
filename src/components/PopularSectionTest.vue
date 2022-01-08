@@ -123,6 +123,8 @@ export default {
       // this.paginatedData = this.data;
       this.paginatedData = this.setPageData(this.data);
       this.setPageButton(this.data);
+      // 重設起始頁面
+      this.currentPage = 1;
       // console.log('paginatedData - watch data', this.paginatedData);
     },
     currentPage() {

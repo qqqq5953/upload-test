@@ -31,7 +31,9 @@ const routes = [
     props: route => {
       console.log('route', route);
       return {
-        inputKeywords: route.query.q
+        inputKeywords: route.query.q,
+        type: route.query.type,
+        city: route.query.city
       };
     }
   },

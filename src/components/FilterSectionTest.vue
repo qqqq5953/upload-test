@@ -80,18 +80,16 @@
       >
         test
       </router-link> -->
-      <router-link :to="{ name: 'SearchResult' }">
-        <input
-          type="button"
-          class="banner_filterForm_searchBtn"
-          @click="
-            closeMask();
-            sendFilterData();
-          "
-          value="搜尋"
-          ref="filterBtn"
-        />
-      </router-link>
+      <input
+        type="button"
+        class="banner_filterForm_searchBtn"
+        @click="
+          closeMask();
+          sendFilterData();
+        "
+        value="搜尋"
+        ref="filterBtn"
+      />
     </div>
   </div>
 </template>
@@ -192,22 +190,22 @@ export default {
       return `https://ptx.transportdata.tw/MOTC/v2/Tourism/${this.filteredTypeData}/${this.filteredCityData}?&$format=JSON`;
     }
   },
-  watch: {
-    filteredCityData() {
-      if (this.filteredTypeData === 'ScenicSpot') {
-        this.getPlaceData();
-        console.log('開始抓資料');
-      }
-      if (this.filteredTypeData === 'Restaurant') {
-        this.getFoodData();
-        console.log('開始抓資料');
-      }
-      if (this.filteredTypeData === 'Activity') {
-        this.getEventData();
-        console.log('開始抓資料');
-      }
-    }
-  },
+  // watch: {
+  //   filteredCityData() {
+  //     if (this.filteredTypeData === 'ScenicSpot') {
+  //       this.getPlaceData();
+  //       console.log('開始抓資料');
+  //     }
+  //     if (this.filteredTypeData === 'Restaurant') {
+  //       this.getFoodData();
+  //       console.log('開始抓資料');
+  //     }
+  //     if (this.filteredTypeData === 'Activity') {
+  //       this.getEventData();
+  //       console.log('開始抓資料');
+  //     }
+  //   }
+  // },
   methods: {
     closeMask() {
       console.log('關閉');
@@ -222,7 +220,7 @@ export default {
         console.log('placeData', this.filteredData);
 
         // 傳送資料給 PopularSection.vue
-        this.emitter.emit('filteredData', this.emitFunc('熱門景點'));
+        // this.emitter.emit('filteredData', this.emitFunc('熱門景點'));
       } catch (error) {
         console.log(error);
       }
@@ -233,7 +231,7 @@ export default {
         this.filteredData = foodResponse.data;
 
         // 傳送資料給 PopularSection.vue
-        this.emitter.emit('filteredData', this.emitFunc('熱門美食'));
+        // this.emitter.emit('filteredData', this.emitFunc('熱門美食'));
 
         console.log('foodData', this.filteredData);
       } catch (error) {
@@ -246,7 +244,7 @@ export default {
         this.filteredData = eventResponse.data;
 
         // 傳送資料給 PopularSection.vue
-        this.emitter.emit('filteredData', this.emitFunc('近期活動'));
+        // this.emitter.emit('filteredData', this.emitFunc('近期活動'));
         console.log('eventData', this.filteredData);
       } catch (error) {
         console.log(error);
@@ -280,11 +278,16 @@ export default {
       };
     },
     sendFilterData() {
-      console.log('selectedType', this.selectedType.value);
-      console.log('city', this.selectedCityValue);
-
       this.filteredTypeData = this.selectedType.value;
       this.filteredCityData = this.selectedCityValue;
+
+      console.log('filteredTypeData', this.filteredTypeData);
+      console.log('filteredCityData', this.filteredCityData);
+
+      this.$router.push({
+        name: 'SearchResult',
+        query: { type: this.filteredTypeData, city: this.filteredCityData }
+      });
 
       this.resetFilter();
 
