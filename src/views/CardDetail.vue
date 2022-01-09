@@ -30,8 +30,11 @@
                 :value="defaultCardItem.Phone || '無'"
               />
               <div>
-                <span>{{ defaultCardItem.Phone }}</span>
-                <a href="#" @click.prevent="copyToClipBoard"
+                <span>{{ defaultCardItem.Phone || '無' }}</span>
+                <a
+                  href="#"
+                  @click.prevent="copyToClipBoard"
+                  v-if="defaultCardItem.Phone"
                   ><i class="far fa-copy"></i
                 ></a>
               </div>
@@ -45,7 +48,7 @@
             </div>
             <div class="info_details_openTime">
               <h4>開放時間：</h4>
-              <div>{{ defaultCardItem.OpenTime }}</div>
+              <div>{{ defaultCardItem.OpenTime || '無' }}</div>
             </div>
           </div>
         </div>
@@ -55,7 +58,13 @@
     <div class="content">
       <section class="intro_section">
         <h3>介紹</h3>
-        <article>{{ defaultCardItem.DescriptionDetail }}</article>
+        <article>
+          {{
+            defaultCardItem.DescriptionDetail ||
+            defaultCardItem.Description ||
+            '無'
+          }}
+        </article>
       </section>
 
       <section class="map_section">
@@ -376,16 +385,23 @@ export default {
     getDataByDistance(rawData) {
       const filteredDataByDistance = rawData.filter((data) => {
         const Name = this.nameFilter(data);
-
-        // 如果活動是網站活動(可視情況增加條件 data.Location === "to see the official site")
-        if (!data.Address && Name === 'ActivityName') {
+        // 如果活動是網站活動且沒地址，或 "dataGeoHash(座標ID)" 與 "頁面資訊" 相等
+        if (
+          (!data.Address && Name === 'ActivityName') ||
+          data.Position.GeoHash === this.defaultCardItem.Position.GeoHash
+        ) {
           this.officialSiteData.push(data);
           console.log('this.officialSiteData', this.officialSiteData);
           return;
         }
 
-        // 如果 data 名字 等於 頁面標題，return
-        if (data[Name] === this.defaultCardItem[this.Name]) return;
+        // 如果 "data 名字" 或 "dataGeoHash(座標ID)" 與 "頁面資訊" 相等，return
+        if (
+          data[Name] === this.defaultCardItem[this.Name] ||
+          data.Position.GeoHash === this.defaultCardItem.Position.GeoHash
+        ) {
+          return;
+        }
 
         const latitude = data.Position.PositionLat;
         const longitude = data.Position.PositionLon;
@@ -395,7 +411,7 @@ export default {
             longitude,
             this.latitude,
             this.longitude
-          ) <= 1
+          ) <= 0.3
         );
       });
 
@@ -476,7 +492,11 @@ export default {
         );
 
         // 儲存地圖資料
-        this.savePositionData(dataName, markerPopup.marker, markerPopup.popup);
+        this.savePositionData(
+          data[dataName],
+          markerPopup.marker,
+          markerPopup.popup
+        );
       });
       console.log('geoArr', this.geoArr);
     },

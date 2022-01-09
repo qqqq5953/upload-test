@@ -8,7 +8,7 @@
   <HeaderSectionTest></HeaderSectionTest>
   <PopularSectionTest
     :data="moreResultData"
-    resultType="MoreResult"
+    resultPath="MoreResult"
   ></PopularSectionTest>
 </template>
 
