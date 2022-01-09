@@ -43,7 +43,9 @@
         <router-link
           :to="`${resultPath}`"
           class="page-link"
-          :class="{ 'disabled-btn': currentPage === totalPages }"
+          :class="{
+            'disabled-btn': currentPage === totalPages || totalPages === 0
+          }"
           href="#"
         >
           <span>&raquo;</span>
@@ -55,7 +57,9 @@
         <router-link
           :to="`${resultPath}`"
           class="page-link"
-          :class="{ 'disabled-btn': currentPage === totalPages }"
+          :class="{
+            'disabled-btn': currentPage === totalPages || totalPages === 0
+          }"
           href="#"
         >
           <span>Last</span>
@@ -118,10 +122,11 @@ export default {
       this.$emit('pageChange', page);
     },
     onNextPage() {
-      if (this.currentPage === this.totalPages) return;
+      if (this.currentPage === this.totalPages || this.totalPages === 0) return;
       this.$emit('pageChange', this.currentPage + 1);
     },
     onLastPage() {
+      if (this.currentPage === this.totalPages || this.totalPages === 0) return;
       this.$emit('pageChange', this.totalPages);
     }
   },

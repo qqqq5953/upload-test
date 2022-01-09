@@ -47,6 +47,10 @@ const routes = [
     name: 'CardDetail',
     component: () => import('../views/CardDetail.vue')
   },
+  // {
+  //   path: '/searchResult/:pathMatch(.*)*',
+  //   component: () => import('../views/PageNotFound.vue')
+  // },
   {
     path: '/about',
     name: 'About',

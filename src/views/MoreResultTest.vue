@@ -24,7 +24,7 @@ export default {
         'https://ptx.transportdata.tw/MOTC/v2/Tourism/Restaurant/?&$format=JSON',
       eventUrl:
         'https://ptx.transportdata.tw/MOTC/v2/Tourism/Activity/?&$format=JSON',
-      moreResultData: null,
+      moreResultData: [],
       moreResultType: '',
       // Loader
       isLoading: false,

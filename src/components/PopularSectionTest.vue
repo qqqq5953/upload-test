@@ -1,6 +1,4 @@
 <template>
-  <!-- <HeaderSection></HeaderSection> -->
-  <!-- v-if="searchData" -->
   <Loading
     :active="isLoading"
     :color="loaderColor"
@@ -8,7 +6,7 @@
     :height="loaderHeight"
   ></Loading>
   <PaginationTest
-    v-if="!defaultType"
+    v-if="!defaultType && data.length"
     :current-page="currentPage"
     :total-pages="totalPages"
     @page-change="onPageChange"
@@ -18,6 +16,7 @@
     <div class="card_section_title">
       <slot name="card_section_title_text"></slot>
     </div>
+    <NoResult v-if="!data.length"></NoResult>
     <div class="card_section_content">
       <Card v-for="obj in paginatedData" :key="obj.ID" :item="obj"></Card>
     </div>

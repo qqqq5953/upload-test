@@ -16,6 +16,7 @@ import PopularSection from '@/components/PopularSection.vue';
 import Navbar from '@/components/Navbar.vue';
 import Card from '@/components/Card.vue';
 import Pagination from '@/components/Pagination.vue';
+import NoResult from '@/components/NoResult.vue';
 
 import DefaultResult from '@/views/DefaultResult.vue';
 import MoreResult from '@/views/MoreResult.vue';
@@ -40,6 +41,7 @@ app.component('Navbar', Navbar);
 app.component('Card', Card);
 app.component('MoreResult', MoreResult);
 app.component('Pagination', Pagination);
+app.component('NoResult', NoResult);
 
 app.component('DefaultResult', DefaultResult);
 app.component('Loading', Loading);
