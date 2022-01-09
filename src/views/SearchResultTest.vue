@@ -10,7 +10,23 @@
     :data="searchedData"
     :touristType="filteredType"
     :resultPath="path"
-  ></PopularSectionTest>
+  >
+    <template #card_section_title_text>
+      <div v-if="filteredType === 'ScenicSpot'">
+        <span>熱門景點</span>
+        <img src="@/assets/images/place-icon.png" alt="place-icon" />
+      </div>
+      <div v-else-if="filteredType === 'Restaurant'">
+        <span>熱門美食</span>
+        <img src="@/assets/images/restaurant-icon.png" alt="restaurant-icon" />
+      </div>
+      <div v-else-if="filteredType === 'Activity'">
+        <span>近期活動</span>
+        <img src="@/assets/images/event-icon.png" alt="event-icon" />
+      </div>
+      <div v-else>搜尋結果 <i class="fas fa-lg fa-search"></i></div>
+    </template>
+  </PopularSectionTest>
 </template>
 
 <script>
@@ -142,3 +158,23 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.card_section_title {
+  font-weight: bold;
+  font-size: $font-size-xxl;
+  color: $color-primary;
+  margin-bottom: 70px;
+  display: flex;
+
+  img {
+    margin-left: 24px;
+  }
+
+  @include mobile {
+    font-size: $font-size-md;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+}
+</style>

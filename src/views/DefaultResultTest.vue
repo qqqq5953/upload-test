@@ -141,5 +141,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/popularSection.scss';
+// @import '@/assets/scss/popularSection.scss';
+.card_section_title {
+  font-weight: bold;
+  font-size: $font-size-xxl;
+  color: $color-primary;
+  margin-bottom: 70px;
+  display: flex;
+
+  img {
+    margin-left: 24px;
+  }
+
+  @include mobile {
+    font-size: $font-size-md;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+}
 </style>

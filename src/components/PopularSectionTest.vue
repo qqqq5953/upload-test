@@ -16,32 +16,10 @@
   ></PaginationTest>
   <section class="card_section">
     <div class="card_section_title">
-      <slot v-if="!touristType" name="card_section_title_text"></slot>
-      <div>{{ touristType }}</div>
-      <img
-        v-if="touristType === 'ScenicSpot'"
-        src="@/assets/images/place-icon.png"
-        alt="place-icon"
-      />
-      <img
-        v-else-if="touristType === 'Restaurant'"
-        src="@/assets/images/restaurant-icon.png"
-        alt="restaurant-icon"
-      />
-      <img
-        v-else-if="touristType === 'Activity'"
-        src="@/assets/images/event-icon.png"
-        alt="event-icon"
-      />
+      <slot name="card_section_title_text"></slot>
     </div>
     <div class="card_section_content">
-      <Card v-for="obj in paginatedData" :key="obj.ID" :item="obj">
-        <!-- <template #card_moreInfoBtn>
-          <router-link :to="{ name: 'CardDetail' }" >
-            <button type="button" class="card_moreInfoBtn">查看詳情</button>
-          </router-link>
-        </template> -->
-      </Card>
+      <Card v-for="obj in paginatedData" :key="obj.ID" :item="obj"></Card>
     </div>
     <router-link
       :to="{ name: 'MoreResult' }"
