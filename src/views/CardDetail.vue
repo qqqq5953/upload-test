@@ -118,7 +118,7 @@
             @click.prevent="showTable"
           >
             <div class="hasOfficialSiteText">
-              更多官網活動
+              <span>更多官網活動</span>
               <i class="fas fa-chevron-down"></i>
             </div>
             <span>點擊並向下滾動</span>
@@ -643,7 +643,7 @@ export default {
       this.mymap = L.map('mapid', {
         zoomSnap: 0.5,
         zoom: 15,
-        minZoom: 13,
+        minZoom: 12,
         center: [latitude, longitude],
         closePopupOnClick: false
       });
@@ -742,11 +742,25 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/scss/cardDetail.scss';
 
+.outline {
+  outline: 1px solid red;
+}
+
+.nav {
+  border-bottom: 1px solid #dbdbdb;
+  padding-bottom: 10px;
+}
+
 .card {
   margin-bottom: 0;
 
-  &:not(&:nth-of-type(3n)) {
-    margin-right: 0;
+  @include pad {
+    margin: 0 auto;
+    width: 55%;
+  }
+
+  @include mobile {
+    width: 80%;
   }
 }
 </style>

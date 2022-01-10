@@ -1,34 +1,34 @@
-.nav {
-  padding-left: 57px;
-  padding-top: 39px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #dbdbdb;
+// .nav {
+//   padding-left: 57px;
+//   padding-top: 39px;
+//   padding-bottom: 10px;
+//   border-bottom: 1px solid #dbdbdb;
 
-  @include mobile {
-    padding-top: 16px;
-    padding-left: 27px;
-  }
+//   @include mobile {
+//     padding-top: 16px;
+//     padding-left: 27px;
+//   }
 
-  .logo {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
+//   .logo {
+//     display: flex;
+//     align-items: center;
+//     text-decoration: none;
 
-    img {
-      display: block;
-      width: 70px;
-      height: 72px;
-    }
-  }
+//     img {
+//       display: block;
+//       width: 70px;
+//       height: 72px;
+//     }
+//   }
 
-  .websiteName {
-    display: block;
-    font-size: 22px;
-    color: white;
-    margin-left: 14px;
-    -webkit-text-stroke: 1px $color-primary;
-  }
-}
+//   .websiteName {
+//     display: block;
+//     font-size: 22px;
+//     color: white;
+//     margin-left: 14px;
+//     -webkit-text-stroke: 1px $color-primary;
+//   }
+// }
 
 .info_section {
   padding: 33px 101px;
@@ -55,7 +55,7 @@
 .info_content {
   display: flex;
 
-  @include mobile {
+  @include pad {
     display: block;
   }
 
@@ -72,8 +72,13 @@
     flex-shrink: 0;
     position: relative;
 
-    @include mobile {
+    @include pad {
       width: 100%;
+      border-radius: 10px;
+      height: 385px;
+    }
+
+    @include mobile {
       height: 179px;
     }
 
@@ -84,6 +89,11 @@
 
       img[alt] {
         display: none;
+      }
+
+      @include pad {
+        border-radius: 10px;
+        height: 385px;
       }
 
       @include mobile {
@@ -115,8 +125,8 @@
       margin-top: 30px;
     }
 
-    @include mobile {
-      margin-top: 16px;
+    @include pad {
+      margin-top: 36px;
     }
 
     h3 {
@@ -193,6 +203,7 @@
       .info_details_phone_wrap {
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
 
         span {
           margin-right: 20px;
@@ -206,6 +217,7 @@
       .info_details_address-wrap {
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
 
         span {
           display: inline-block;
@@ -215,8 +227,11 @@
     }
 
     .info_details_openTime {
-      display: flex;
       line-height: 1.5;
+
+      @include pad {
+        display: flex;
+      }
     }
   }
 }
@@ -269,7 +284,8 @@
     letter-spacing: 1px;
     margin-bottom: 26px;
 
-    @include mobile {
+    @include pad {
+      margin-bottom: 50px;
       justify-content: space-between;
     }
 
@@ -303,13 +319,13 @@
         align-items: center;
         box-shadow: 0px 4px 16px rgba(51, 51, 51, 0.2);
 
-        @include mobile {
+        @include pad {
           width: 40px;
           height: 40px;
         }
 
         .fas {
-          @include mobile {
+          @include pad {
             font-size: $font-size-md;
           }
         }
@@ -324,7 +340,7 @@
         font-size: $font-size-lg;
         text-shadow: 0px 4px 16px rgba(51, 51, 51, 0.2);
 
-        @include mobile {
+        @include pad {
           font-size: $font-size-xs;
         }
       }
@@ -333,7 +349,7 @@
     .search_by_type_btn + .search_by_type_btn {
       margin-left: 55px;
 
-      @include mobile {
+      @include pad {
         margin-left: 0;
       }
     }
@@ -342,35 +358,48 @@
   .map_section_details {
     display: flex;
     align-items: center;
-    outline: 1px solid red;
+    justify-content: space-between;
 
-    @include mobile {
+    @include pad {
       display: block;
     }
 
     .map_wrap {
       position: relative;
       width: 61%;
-      outline: 1px solid red;
 
-      @include mobile {
+      @include pad {
         width: 100%;
-        margin-bottom: 12px;
+        margin-bottom: 20px;
       }
 
       .noDataWarning {
-        // margin-top: 20px;
-        padding: 15px 20px;
+        padding: 15px;
         background-color: #cb2b3e;
         color: #efefef;
         font-size: $font-size-lg;
         position: absolute;
-        right: 117px;
-        top: -60px;
+        right: 0px;
+        right: -51px;
+        top: 0;
+        writing-mode: vertical-rl;
+
+        @include pad {
+          padding: 5px 10px;
+          writing-mode: horizontal-tb;
+          left: 0;
+          right: 0;
+          top: -26px;
+          font-size: 16px;
+        }
+
+        @include mobile {
+          top: -22px;
+          font-size: $font-size-xxs;
+        }
       }
 
       .map_default {
-        margin-right: 117px;
         background-color: #999;
         position: relative;
         width: 100%;
@@ -393,177 +422,6 @@
       }
     }
 
-    .card {
-      box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.25);
-      border-radius: 14px;
-      width: 366px;
-      height: 515px;
-      display: flex;
-      flex-direction: column;
-
-      &:hover .card_image > .card_description {
-        border-radius: 14px 14px 0 0;
-        // top: 0;
-        opacity: 1;
-        width: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        transform: scale(1);
-      }
-
-      @include pad {
-        width: 45%;
-      }
-
-      @include mobile {
-        margin-bottom: 34px;
-        width: 140px;
-        width: 100%;
-      }
-
-      .card_image {
-        height: 251px;
-        border-radius: 14px 14px 0 0;
-        background: linear-gradient(
-          45deg,
-          rgba(47, 122, 140, 0.85),
-          rgba(47, 201, 255, 0.7)
-        );
-        position: relative;
-
-        @include pad {
-          height: 190px;
-        }
-
-        @include mobile {
-          height: 170px;
-        }
-
-        img {
-          border-radius: 14px 14px 0 0;
-          object-fit: cover;
-          width: 100%;
-          height: 251px;
-          display: block;
-          position: absolute;
-          z-index: 2;
-
-          @include pad {
-            height: 190px;
-          }
-
-          @include mobile {
-            height: 170px;
-          }
-
-          &::after {
-            content: 'Sorry! 無法顯示圖片';
-            position: absolute;
-            left: 0;
-            right: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 95%;
-            font-size: 28px;
-            font-weight: bold;
-
-            @include pad {
-              font-size: $font-size-md;
-            }
-          }
-        }
-
-        .card_description {
-          position: absolute;
-          padding: 16px 30px;
-          // top: 0;
-          bottom: 0;
-          bottom: -30px;
-          height: 100%;
-          z-index: 3;
-          color: #efefef;
-          font-size: $font-size-lg;
-          line-height: 1.9;
-          -webkit-line-clamp: 6;
-          -webkit-box-orient: vertical;
-          display: -webkit-box;
-          overflow: hidden;
-          opacity: 0;
-          transform: scale(0);
-          // background-color: rgba(0, 0, 0, 0.5);
-          transition: 0.4s;
-
-          @include pad {
-            font-size: $font-size-sm;
-            line-height: 2;
-          }
-
-          @include mobile {
-            -webkit-line-clamp: 5;
-            line-height: 2.15;
-          }
-        }
-      }
-
-      .card_body {
-        padding: 18px 26px 32px;
-        color: $color-dark-50;
-        line-height: 1.2;
-      }
-
-      .card_header {
-        font-weight: 700;
-        font-size: $font-size-md;
-
-        @include mobile {
-          font-size: $font-size-xs;
-        }
-      }
-
-      .card_header_location .fa-map-marker-alt {
-        color: $color-danger;
-        margin-right: 12px;
-      }
-
-      .card_header_title {
-        margin-top: 15px;
-
-        @include mobile {
-          margin-top: 7px;
-        }
-      }
-
-      .card_phone {
-        margin-top: 18px;
-      }
-
-      .card_address {
-        margin-top: 15px;
-      }
-
-      .card_openTime {
-        h5 {
-          margin-top: 13px;
-          margin-bottom: 7px;
-
-          @include mobile {
-            margin-top: 5px;
-          }
-        }
-
-        .card_openTime_details {
-          line-height: 1.5;
-          text-overflow: ellipsis;
-          overflow: hidden;
-          white-space: nowrap;
-        }
-
-        @include mobile {
-          font-size: $font-size-xxs;
-        }
-      }
-    }
-
     .hasOfficialSiteBtn {
       border: 3px solid $color-primary;
       border-radius: 14px;
@@ -572,29 +430,209 @@
       padding: 20px 25px;
       margin-top: 30px;
 
-      font-size: $font-size-xxl;
+      display: block;
+      flex-shrink: 0;
+
       line-height: 1.5;
       letter-spacing: 1.5px;
       color: #fff;
       text-decoration: none;
-      // text-align: center;
 
       cursor: pointer;
       align-self: flex-end;
-      width: 100%;
+      // width: 30%;
+
       @include btn-hover;
 
       .hasOfficialSiteText {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        font-weight: bold;
+
+        span {
+          font-size: $font-size-xxl;
+          margin-right: 10px;
+          font-weight: bold;
+        }
       }
 
       span {
         font-size: $font-size-lg;
       }
     }
+
+    // .card {
+    //   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.25);
+    //   border-radius: 14px;
+    //   margin-bottom: 0;
+
+    //   &:hover .card_image > .card_description {
+    //     border-radius: 14px 14px 0 0;
+    //     opacity: 1;
+    //     background-color: rgba(0, 0, 0, 0.5);
+    //     transform: scale(1);
+    //   }
+
+    //   @include pad {
+    //     width: 45%;
+    //   }
+
+    //   @include mobile {
+    //     margin: 0 auto 34px;
+    //     width: 80%;
+    //   }
+
+    //   .card_image {
+    //     height: 251px;
+    //     border-radius: 14px 14px 0 0;
+    //     background: linear-gradient(
+    //       45deg,
+    //       rgba(47, 122, 140, 0.85),
+    //       rgba(47, 201, 255, 0.7)
+    //     );
+    //     position: relative;
+
+    //     @include pad {
+    //       height: 190px;
+    //     }
+
+    //     @include mobile {
+    //       height: 170px;
+    //     }
+
+    //     img {
+    //       border-radius: 14px 14px 0 0;
+    //       object-fit: cover;
+    //       width: 100%;
+    //       height: 251px;
+    //       display: block;
+    //       position: absolute;
+    //       z-index: 2;
+
+    //       @include pad {
+    //         height: 190px;
+    //       }
+
+    //       @include mobile {
+    //         height: 170px;
+    //       }
+
+    //       &::after {
+    //         content: 'Sorry! 無法顯示圖片';
+    //         position: absolute;
+    //         left: 0;
+    //         right: 0;
+    //         display: flex;
+    //         justify-content: center;
+    //         align-items: center;
+    //         height: 95%;
+    //         font-size: 28px;
+    //         font-weight: bold;
+
+    //         @include pad {
+    //           font-size: $font-size-md;
+    //         }
+    //       }
+    //     }
+
+    //     .card_description {
+    //       position: absolute;
+    //       padding: 16px 30px;
+    //       top: 0;
+    //       bottom: 0;
+    //       z-index: 3;
+    //       color: #efefef;
+    //       font-size: $font-size-lg;
+    //       line-height: 1.9;
+    //       -webkit-line-clamp: 6;
+    //       -webkit-box-orient: vertical;
+    //       display: -webkit-box;
+    //       overflow: hidden;
+    //       opacity: 0;
+    //       transform: scale(0);
+    //       transition: 0.4s;
+
+    //       @include pad {
+    //         font-size: $font-size-sm;
+    //         line-height: 2;
+    //       }
+
+    //       @include mobile {
+    //         -webkit-line-clamp: 5;
+    //         line-height: 2.15;
+    //       }
+    //     }
+    //   }
+
+    //   .card_body {
+    //     padding: 18px 26px 32px;
+    //     color: $color-dark-50;
+    //     line-height: 1.2;
+    //   }
+
+    //   .card_header {
+    //     font-weight: 700;
+    //     font-size: $font-size-md;
+
+    //     @include mobile {
+    //       font-size: 16px;
+    //     }
+    //   }
+
+    //   .card_header_location {
+    //     @include mobile {
+    //       font-size: $font-size-sm;
+    //     }
+
+    //     .fa-map-marker-alt {
+    //       color: $color-danger;
+    //       margin-right: 12px;
+    //     }
+    //   }
+
+    //   .card_header_title {
+    //     margin-top: 15px;
+
+    //     @include mobile {
+    //       margin-top: 7px;
+    //     }
+    //   }
+
+    //   .card_phone {
+    //     margin-top: 18px;
+
+    //     @include mobile {
+    //       font-size: $font-size-xs;
+    //     }
+    //   }
+
+    //   .card_address {
+    //     margin-top: 15px;
+    //     margin-bottom: 15px;
+
+    //     @include mobile {
+    //       font-size: $font-size-xs;
+    //     }
+    //   }
+
+    //   .card_openTime {
+    //     @include mobile {
+    //       font-size: $font-size-xxs;
+    //     }
+
+    //     h5 {
+    //       margin-top: 13px;
+    //       margin-bottom: 7px;
+    //     }
+
+    //     .card_openTime_details {
+    //       line-height: 1.5;
+    //       // text-overflow: ellipsis;
+    //       // overflow: hidden;
+    //       // white-space: nowrap;
+    //     }
+    //   }
+    // }
   }
 }
 

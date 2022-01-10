@@ -30,17 +30,15 @@
     display: block;
   }
 
-  @include mobile {
+  @include pad {
     display: none;
   }
 }
 
 .page-item-number-mobile {
-  @include desktop {
-    display: none;
-  }
+  display: none;
 
-  @include mobile {
+  @include pad {
     display: block;
   }
 }

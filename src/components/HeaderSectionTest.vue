@@ -10,8 +10,8 @@
     <section class="banner">
       <h2 class="banner_title">尋找台灣</h2>
       <h3 class="banner_subtitle">景點、活動、美食</h3>
-      <div class="banner_search outline">
-        <div class="banner_searchBar outline">
+      <div class="banner_search">
+        <div class="banner_searchBar">
           <input
             type="text"
             placeholder="請輸入關鍵字"

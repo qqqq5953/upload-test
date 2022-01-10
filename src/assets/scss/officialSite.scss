@@ -3,7 +3,9 @@
   border-radius: 14px;
   margin-top: 60px;
   color: $color-dark-50;
-  max-width: 100%;
+  width: 100%;
+  overflow: hidden;
+  overflow-x: scroll;
 
   caption {
     text-align: center;
@@ -15,6 +17,15 @@
   table {
     font-size: $font-size-md;
     width: 100%;
+    table-layout: fixed;
+
+    @include pad {
+      font-size: $font-size-sm;
+    }
+
+    @include mobile {
+      font-size: $font-size-xs;
+    }
   }
 
   thead {
@@ -22,12 +33,8 @@
 
     th:first-of-type,
     th:last-of-type {
-      padding: 20px 15px;
-
-      width: 13%;
-    }
-    th:nth-of-type(2) {
-      max-width: 60%;
+      padding: 20px 13px;
+      width: 20%;
     }
   }
 
@@ -36,9 +43,23 @@
       border-top: 1px solid #999;
     }
 
+    // tr:nth-of-type(2n) {
+    // background-color: rgba(184, 215, 223, 0.5);
+    // }
+
+    tr:hover {
+      background-color: rgba(47, 121, 140, 0.4);
+      background-color: rgba(184, 215, 223, 0.5);
+      color: rgb(0, 0, 0);
+    }
+
     td {
-      padding: 15px;
+      padding: 20px 13px;
       line-height: 1.5;
+    }
+
+    td:nth-of-type(2) {
+      word-wrap: break-word;
     }
   }
 }
