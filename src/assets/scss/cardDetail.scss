@@ -34,7 +34,7 @@
   padding: 33px 101px;
 
   @include mobile {
-    padding: 15px 41px 11px;
+    padding: 15px 39px 11px;
   }
 
   h2 {
@@ -60,22 +60,53 @@
   }
 
   .info_img {
-    // background: url("https://images.unsplash.com/photo-1523217582562-09d0def993a6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=804&h=549&q=80")
-    // 	no-repeat center center / cover;
+    background: linear-gradient(
+      45deg,
+      rgba(47, 122, 140, 0.85),
+      rgba(47, 201, 255, 0.7)
+    );
     width: 65%;
     // width: 804px;
     height: 549px;
     margin-right: 68px;
     flex-shrink: 0;
+    position: relative;
 
     @include mobile {
       width: 100%;
+      height: 179px;
     }
 
     img {
       width: 100%;
       height: 549px;
       object-fit: cover;
+
+      img[alt] {
+        display: none;
+      }
+
+      @include mobile {
+        height: 179px;
+      }
+
+      &::after {
+        content: 'Sorry! 無法顯示圖片';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: $font-size-xxxl;
+        font-weight: bold;
+
+        @include pad {
+          font-size: $font-size-md;
+        }
+      }
     }
   }
 
@@ -84,11 +115,19 @@
       margin-top: 30px;
     }
 
+    @include mobile {
+      margin-top: 16px;
+    }
+
     h3 {
       font-size: $font-size-xxl;
       color: $color-dark-50;
       font-weight: bold;
       margin-bottom: 40px;
+
+      @include mobile {
+        font-size: $font-size-md;
+      }
     }
 
     h4 {
@@ -96,6 +135,12 @@
       color: $color-dark-50;
       font-weight: bold;
       margin-bottom: 5px;
+      flex-shrink: 0;
+
+      @include mobile {
+        font-size: 16px;
+        margin-bottom: 0;
+      }
     }
 
     .info_details_phone,
@@ -104,20 +149,36 @@
       font-size: $font-size-lg;
       line-height: 1.5;
 
+      @include mobile {
+        font-size: $font-size-sm;
+        line-height: 1.2;
+      }
+
       a {
-        // margin-left: 20px;
         background: $color-primary;
         border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
 
         &:hover,
         &:focus {
           background-color: rgba(63, 156, 179, 1);
+        }
+
+        @include mobile {
+          width: 35px;
+          height: 35px;
+          margin-left: auto;
         }
       }
 
       .fa-copy,
       .fa-map-marked-alt {
         color: #fff;
+        font-size: 20px;
       }
     }
 
@@ -129,27 +190,33 @@
         appearance: none;
       }
 
-      span {
-        display: inline-block;
-        margin-bottom: 15px;
-        margin-right: 20px;
-      }
+      .info_details_phone_wrap {
+        display: flex;
+        align-items: center;
 
-      a {
-        display: inline-block;
-        padding: 4px 11px;
+        span {
+          margin-right: 20px;
+        }
       }
     }
 
     .info_details_address {
-      span {
-        display: inline-block;
-        margin-bottom: 15px;
-        margin-right: 20px;
+      margin-bottom: 15px;
+
+      .info_details_address-wrap {
+        display: flex;
+        align-items: center;
+
+        span {
+          display: inline-block;
+          margin-right: 20px;
+        }
       }
-      a {
-        padding: 8px;
-      }
+    }
+
+    .info_details_openTime {
+      display: flex;
+      line-height: 1.5;
     }
   }
 }
@@ -158,10 +225,19 @@
   background-color: $color-secondary;
   padding: 34px 101px;
 
+  @include mobile {
+    padding: 12px 39px;
+    font-size: $font-size-sm;
+  }
+
   h3 {
     font-size: $font-size-xxl;
     color: $color-dark-50;
     font-weight: bold;
+
+    @include mobile {
+      font-size: $font-size-md;
+    }
   }
 
   article {
@@ -169,6 +245,11 @@
     margin: 50px 0 67px;
     line-height: 1.7;
     letter-spacing: 1px;
+
+    @include mobile {
+      font-size: $font-size-sm;
+      margin: 30px 0 45px;
+    }
   }
 
   p {
@@ -176,6 +257,11 @@
     font-weight: bold;
     margin: 38px 0 30px;
     color: #888888;
+
+    @include mobile {
+      font-size: $font-size-sm;
+      margin: 19px 0 15px;
+    }
   }
 
   .search_by_type {
@@ -183,7 +269,12 @@
     letter-spacing: 1px;
     margin-bottom: 26px;
 
+    @include mobile {
+      justify-content: space-between;
+    }
+
     .search_by_type_btn {
+      // outline: 1px solid red;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -212,7 +303,18 @@
         align-items: center;
         box-shadow: 0px 4px 16px rgba(51, 51, 51, 0.2);
 
-        .fa-bed {
+        @include mobile {
+          width: 40px;
+          height: 40px;
+        }
+
+        .fas {
+          @include mobile {
+            font-size: $font-size-md;
+          }
+        }
+
+        .fas.fa-bed {
           margin-left: 3px;
         }
       }
@@ -221,23 +323,40 @@
         color: rgba(69, 114, 227, 1);
         font-size: $font-size-lg;
         text-shadow: 0px 4px 16px rgba(51, 51, 51, 0.2);
+
+        @include mobile {
+          font-size: $font-size-xs;
+        }
       }
     }
 
     .search_by_type_btn + .search_by_type_btn {
       margin-left: 55px;
+
+      @include mobile {
+        margin-left: 0;
+      }
     }
   }
 
   .map_section_details {
     display: flex;
     align-items: center;
-    // justify-content: space-between;
-    // padding-bottom: -140px;
+    outline: 1px solid red;
+
+    @include mobile {
+      display: block;
+    }
 
     .map_wrap {
       position: relative;
-      // outline: 1px solid red;
+      width: 61%;
+      outline: 1px solid red;
+
+      @include mobile {
+        width: 100%;
+        margin-bottom: 12px;
+      }
 
       .noDataWarning {
         // margin-top: 20px;
@@ -254,6 +373,12 @@
         margin-right: 117px;
         background-color: #999;
         position: relative;
+        width: 100%;
+        height: 487px;
+
+        @include mobile {
+          height: 215px;
+        }
 
         &::before {
           content: '地圖載入中...';

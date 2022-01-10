@@ -15,10 +15,7 @@
         </p>
         <div class="info_content">
           <div class="info_img">
-            <img
-              :src="defaultCardItem.Picture.PictureUrl1"
-              :alt="defaultCardItem[this.Name]"
-            />
+            <img :src="defaultCardItem.Picture.PictureUrl1" />
           </div>
           <div class="info_details">
             <h3>資訊</h3>
@@ -29,7 +26,7 @@
                 type="text"
                 :value="defaultCardItem.Phone || '無'"
               />
-              <div>
+              <div class="info_details_phone_wrap">
                 <span>{{ defaultCardItem.Phone || '無' }}</span>
                 <a
                   href="#"
@@ -41,7 +38,7 @@
             </div>
             <div class="info_details_address">
               <h4>地址：</h4>
-              <div>
+              <div class="info_details_address-wrap">
                 <span>{{ defaultCardItem.Address || '無' }}</span>
                 <a href="#mapid"><i class="fas fa-map-marked-alt"></i></a>
               </div>
@@ -110,11 +107,7 @@
         <!--地圖-->
         <section class="map_section_details">
           <div class="map_wrap">
-            <div
-              id="mapid"
-              class="map_default"
-              style="width: 755px; height: 487px"
-            ></div>
+            <div id="mapid" class="map_default"></div>
             <div v-if="noDataWarning" class="noDataWarning">查無資料</div>
             <!--  -->
           </div>
@@ -134,7 +127,9 @@
             <template #card_phone="{ item }">
               <div class="card_phone">
                 <h5>
-                  電話：{{ item.Phone || '無' }}
+                  電話：<a href="tel:`${item.Phone}`">{{
+                    item.Phone || '無'
+                  }}</a>
                   <i
                     class="fas fa-phone-alt"
                     :class="{ 'd-none': !item.Phone }"

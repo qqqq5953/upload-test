@@ -19,12 +19,6 @@ const routes = [
     ]
   },
   {
-    path: '/:id',
-    name: 'RouteTest',
-    component: () => import('../views/RouteTest.vue'),
-    props: true
-  },
-  {
     path: '/searchResult',
     name: 'SearchResult',
     component: () => import('../views/SearchResultTest.vue'),
@@ -47,10 +41,18 @@ const routes = [
     name: 'CardDetail',
     component: () => import('../views/CardDetail.vue')
   },
-  // {
-  //   path: '/searchResult/:pathMatch(.*)*',
-  //   component: () => import('../views/PageNotFound.vue')
-  // },
+  {
+    path: '/404',
+    name: '404',
+    component: () => import('../views/PageNotFound.vue')
+  },
+  {
+    path: '/: pathMatch(.*)*',
+    redirect: {
+      name: '404'
+      // /: pathMatch(.*)
+    }
+  },
   {
     path: '/about',
     name: 'About',
