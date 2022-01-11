@@ -66,7 +66,7 @@
                   <template v-for="item in regionItem.regionCity" :key="item">
                     <li
                       class="dropdown_item"
-                      @click.prevent="
+                      @click="
                         dropdownItemsSelected($event);
                         selectRegion(item.region, item.city, item.value);
                       "
@@ -100,10 +100,6 @@ export default {
     getScrollHeight() {
       return document.documentElement.scrollHeight;
     }
-  },
-  created() {
-    console.log(document.documentElement.scrollHeight);
-    // this.test = document.documentElement.scrollHeight;
   },
   data() {
     return {
@@ -251,13 +247,13 @@ export default {
       // Only run if the dropdown is open
       if (!event.target.open) return;
 
-      // Get all other open dropdowns and close them
+      // 定義打開的選單
       this.regionArea = this.$refs.regionArea;
       this.dropdownsOpen = this.regionArea.querySelectorAll('.dropdown[open]');
       this.dropdownsOpen.forEach(function (dropdown, i) {
         if (event.target === dropdown) return;
 
-        // 如果點擊到的選單為打開的選單不同，則關閉已打開的選單
+        // 如果點擊到的選單與打開的選單不同，則關閉已打開的選單
         dropdown.removeAttribute('open');
         dropdown.removeAttribute('selectedItem');
       });
@@ -271,10 +267,11 @@ export default {
         '.dropdown[selectedItem]'
       );
 
-      // 限制將選到的內容只放入當下有 open 選單的 summary 中
+      // 重新定義(抓取)打開的選單
+      this.dropdownsOpen = this.regionArea.querySelectorAll('.dropdown[open]');
       this.dropdownsOpen.forEach((dropdown) => {
+        // 限制將選到的內容只放入當下有 [open] 選單的 summary 中
         const dropdownsOpenSummary = dropdown.querySelector('summary');
-
         dropdownsOpenSummary.textContent = event.target.textContent;
 
         // 選單收合
@@ -295,9 +292,9 @@ export default {
           // 如點選尚未選擇的選項，則將所有已選內容的選單移除 selectedItem 標記，並改成"選擇縣市"
           withText.forEach((hasTextItem) => {
             console.log('hasTextItem', hasTextItem);
+            hasTextItem.removeAttribute('selectedItem');
             const dropdownsHasTextSummary =
               hasTextItem.querySelector('summary');
-            hasTextItem.removeAttribute('selectedItem');
             dropdownsHasTextSummary.textContent = '選擇縣市';
           });
         });

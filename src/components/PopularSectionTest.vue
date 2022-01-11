@@ -5,13 +5,6 @@
     :width="loaderWidth"
     :height="loaderHeight"
   ></Loading>
-  <PaginationTest
-    v-if="!defaultType && data.length"
-    :current-page="currentPage"
-    :total-pages="totalPages"
-    @page-change="onPageChange"
-    :resultPath="resultPath"
-  ></PaginationTest>
   <section class="card_section">
     <div class="card_section_title">
       <slot name="card_section_title_text"></slot>
@@ -29,6 +22,13 @@
         看更多{{ defaultType }}
       </button>
     </router-link>
+    <PaginationTest
+      v-if="!defaultType && data.length"
+      :current-page="currentPage"
+      :total-pages="totalPages"
+      @page-change="onPageChange"
+      :resultPath="resultPath"
+    ></PaginationTest>
   </section>
 </template>
 

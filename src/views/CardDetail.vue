@@ -469,7 +469,7 @@ export default {
       this.hasOfficialSiteBtn = false;
 
       // 定位地圖 view 至點選位置
-      this.mymap.flyTo(selectedPosition, 18);
+      this.mymap.flyTo(selectedPosition, 16);
 
       // 改變圖標顏色
       const Name = this.nameFilter({ ...selectedSpot[0] });

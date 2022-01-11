@@ -66,11 +66,9 @@
         </router-link>
       </li>
     </ul>
-  </nav>
 
-  <!--手機板-->
-  <nav class="pagination_wrapper">
-    <ul class="pagination">
+    <!--手機板-->
+    <ul class="pagination-mobile">
       <!--數字-->
       <li
         class="page-item page-item-number-mobile"
@@ -112,22 +110,36 @@ export default {
   methods: {
     onFirstPage() {
       this.$emit('pageChange', 1);
+
+      // 換頁時回到頁面最上方
+      window.scrollTo(0, 0);
     },
     onPreviousPage() {
       if (this.currentPage === 1) return;
       this.$emit('pageChange', this.currentPage - 1);
+
+      // 換頁時回到頁面最上方
+      window.scrollTo(0, 0);
     },
     onCurrentPage(page) {
-      // console.log('page', page);
       this.$emit('pageChange', page);
+
+      // 換頁時回到頁面最上方
+      window.scrollTo(0, 0);
     },
     onNextPage() {
       if (this.currentPage === this.totalPages || this.totalPages === 0) return;
       this.$emit('pageChange', this.currentPage + 1);
+
+      // 換頁時回到頁面最上方
+      window.scrollTo(0, 0);
     },
     onLastPage() {
       if (this.currentPage === this.totalPages || this.totalPages === 0) return;
       this.$emit('pageChange', this.totalPages);
+
+      // 換頁時回到頁面最上方
+      window.scrollTo(0, 0);
     }
   },
   computed: {
