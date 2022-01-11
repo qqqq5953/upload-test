@@ -1,11 +1,19 @@
 <template>
-  <!-- v-show="getMask" -->
-
+  <!-- height: 100vh; -->
+  <!-- style="
+      background-color: rgba(0, 0, 0, 0.5);
+      width: 100%;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+    " -->
   <div
-    class="mask loading_mask"
+    class="loading_mask"
     style="
       background-color: rgba(0, 0, 0, 0.5);
-      height: 100vh;
       width: 100%;
       position: absolute;
       top: 0;
@@ -14,88 +22,92 @@
       right: 0;
       z-index: 100;
     "
+    :style="{ height: `${getScrollHeight}px` }"
   >
-    <div class="banner_filterArea">
-      <ul class="typeArea" ref="typeArea">
-        <li class="popularItem">
-          <h4>分類</h4>
-          <details class="dropdown" data-id="inner">
-            <summary class="dropdown_item_selected">
-              {{ this.selectedType.name }}
-            </summary>
-            <ul class="dropdown_list">
-              <template v-for="item in popularType" :key="item.name">
-                <li
-                  class="dropdown_item"
-                  @click.prevent="selectPopularType(item)"
-                >
-                  {{ item.name }}
-                </li>
-              </template>
-            </ul>
-          </details>
-        </li>
-        <a href="#"
-          ><i class="fas fa-2x fa-times" @click.prevent="closeMask"></i
-        ></a>
-      </ul>
-
-      <ul
-        class="regionArea"
-        ref="regionArea"
-        @toggle.capture="dropdownListToggle($event)"
-      >
-        <template v-for="regionItem in regionData" :key="regionItem">
-          <li class="region">
-            <h4>{{ regionItem.regionName.name }}地區</h4>
+    <div class="filterArea-wrap">
+      <div class="filterArea">
+        <ul class="typeArea" ref="typeArea">
+          <li class="popularItem">
+            <h4>分類</h4>
             <details class="dropdown" data-id="inner">
               <summary class="dropdown_item_selected">
-                {{ regionItem.selectedCity }}
+                {{ this.selectedType.name }}
               </summary>
               <ul class="dropdown_list">
-                <template v-for="item in regionItem.regionCity" :key="item">
+                <template v-for="item in popularType" :key="item.name">
                   <li
                     class="dropdown_item"
-                    @click.prevent="
-                      dropdownItemsSelected($event);
-                      selectRegion(item.region, item.city, item.value);
-                    "
+                    @click.prevent="selectPopularType(item)"
                   >
-                    {{ item.city }}
+                    {{ item.name }}
                   </li>
                 </template>
               </ul>
             </details>
           </li>
-        </template>
-      </ul>
-      <!-- :disabled="!this.selectedCityValue" -->
-      <!-- <router-link
-        :to="{ name: 'SearchResult' }"
-        class="banner_filterForm_searchBtn"
-        @click.prevent="
-          closeMask();
-          sendFilterData();
-        "
-      >
-        test
-      </router-link> -->
-      <input
-        type="button"
-        class="banner_filterForm_searchBtn"
-        @click="sendFilterData"
-        value="搜尋"
-        ref="filterBtn"
-      />
+          <a href="#"
+            ><i class="fas fa-2x fa-times" @click.prevent="closeMask"></i
+          ></a>
+        </ul>
+
+        <ul
+          class="regionArea"
+          ref="regionArea"
+          @toggle.capture="dropdownListToggle($event)"
+        >
+          <template v-for="regionItem in regionData" :key="regionItem">
+            <li class="region">
+              <h4>{{ regionItem.regionName.name }}地區</h4>
+              <details class="dropdown" data-id="inner">
+                <summary class="dropdown_item_selected">
+                  {{ regionItem.selectedCity }}
+                </summary>
+                <ul class="dropdown_list">
+                  <template v-for="item in regionItem.regionCity" :key="item">
+                    <li
+                      class="dropdown_item"
+                      @click.prevent="
+                        dropdownItemsSelected($event);
+                        selectRegion(item.region, item.city, item.value);
+                      "
+                    >
+                      {{ item.city }}
+                    </li>
+                  </template>
+                </ul>
+              </details>
+            </li>
+          </template>
+        </ul>
+        <input
+          type="button"
+          class="banner_filterForm_searchBtn"
+          @click="sendFilterData"
+          value="搜尋"
+          ref="filterBtn"
+        />
+      </div>
     </div>
+
+    <!-- <div class="filterArea-wrap"></div> -->
   </div>
 </template>
 
 <script>
 export default {
   emits: ['closeMask'],
+  computed: {
+    getScrollHeight() {
+      return document.documentElement.scrollHeight;
+    }
+  },
+  created() {
+    console.log(document.documentElement.scrollHeight);
+    // this.test = document.documentElement.scrollHeight;
+  },
   data() {
     return {
+      test: '200vh',
       regionData: [
         {
           regionName: { name: '北部', value: 'north' },

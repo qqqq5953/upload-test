@@ -5,7 +5,7 @@
     :width="loaderWidth"
     :height="loaderHeight"
   ></Loading>
-  <header class="header" :style="{ backgroundImage: `url(${image})` }">
+  <header class="header" :style="{ backgroundImage: `url(${image})` }" >
     <Navbar></Navbar>
     <section class="banner">
       <h2 class="banner_title">尋找台灣</h2>
@@ -23,7 +23,7 @@
         <button
           type="button"
           class="banner_filterBtn"
-          @click="this.hasMask = !this.hasMask"
+          @click="changeMaskStatus"
         >
           <div class="banner_filterIcon">
             <i class="fas fa-bars"></i>
@@ -66,7 +66,11 @@ export default {
   },
   methods: {
     changeMaskStatus() {
+      // 被 FilterSection.vue 觸發
       this.hasMask = !this.hasMask;
+
+      // 開啟遮罩，傳送至 App.vue
+      this.emitter.emit('activate_mask', this.hasMask);
     },
     async searchBtn() {
       console.log('searchBtn');

@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap">
+  <div class="wrap" >
     <!-- <Pagination
       v-if="searchData"
       :current-page="currentPage"
@@ -91,6 +91,10 @@ export default {
   max-width: 1440px;
   margin: 0 auto;
   height: 100vh;
+}
+
+.loading_mask {
+  overflow: hidden;
 }
 
 .disabled {
