@@ -15,7 +15,18 @@
         </p>
         <div class="info_content">
           <div class="info_img">
-            <img :src="defaultCardItem.Picture.PictureUrl1" />
+            <img
+              :src="defaultCardItem.Picture.PictureUrl1"
+              :alt="
+                defaultCardItem.ScenicSpotName
+                  ? defaultCardItem.ScenicSpotName
+                  : defaultCardItem.RestaurantName
+                  ? defaultCardItem.RestaurantName
+                  : defaultCardItem.HotelName
+                  ? defaultCardItem.HotelName
+                  : defaultCardItem.ActivityName
+              "
+            />
           </div>
           <div class="info_details">
             <h3>資訊</h3>
@@ -40,7 +51,9 @@
               <h4>地址：</h4>
               <div class="info_details_address-wrap">
                 <span>{{ defaultCardItem.Address || '無' }}</span>
-                <a href="#mapid"><i class="fas fa-map-marked-alt"></i></a>
+                <a href="#" @click.prevent="scrollToMap"
+                  ><i class="fas fa-map-marked-alt"></i
+                ></a>
               </div>
             </div>
             <div class="info_details_openTime">
@@ -64,7 +77,7 @@
         </article>
       </section>
 
-      <section class="map_section">
+      <section class="map_section" ref="map">
         <h3>景點地圖</h3>
         <p>點擊以下按鈕搜尋</p>
 
@@ -107,12 +120,12 @@
         <!--地圖-->
         <section class="map_section_details">
           <div class="map_wrap">
-            <div id="mapid" class="map_default"></div>
             <div v-if="noDataWarning" class="noDataWarning">查無資料</div>
-            <!--  -->
+            <div id="mapid" class="map_default"></div>
+            <!-- v-if="hasOfficialSiteBtn" -->
           </div>
           <a
-            href="#officialSite_section"
+            href="#"
             class="hasOfficialSiteBtn"
             v-if="hasOfficialSiteBtn"
             @click.prevent="showTable"
@@ -142,11 +155,10 @@
             </template>
           </Card>
         </section>
-
+        <!--  -->
         <OfficialSite
-          id="officialSite_section"
           :item="officialSiteData"
-          v-if="isTableShown"
+          v-show="isTableShown"
         ></OfficialSite>
       </section>
     </div>
@@ -236,6 +248,9 @@ export default {
     }
   },
   methods: {
+    scrollToMap() {
+      this.$refs.map.scrollIntoView();
+    },
     copyToClipBoard() {
       const phoneNumber = document.getElementById('phoneNumber');
       phoneNumber.select();
@@ -243,17 +258,15 @@ export default {
       alert('已複製電話至剪貼簿');
     },
     // 1.取得傳進來的景點所在城市
-    async getcityValue() {
-      try {
-        const cityValue = this.cityData.filter(
-          (item) => this.defaultCardItem.City === item.name
-        );
-        this.cityValue = cityValue[0].value;
+    getcityValue() {
+      if (!this.defaultCardItem.City) return;
 
-        console.log('cityValue', this.cityValue);
-      } catch (error) {
-        console.log(error);
-      }
+      const cityValue = this.cityData.filter(
+        (item) => this.defaultCardItem.City === item.name
+      );
+      this.cityValue = cityValue[0].value;
+
+      console.log('cityValue', this.cityValue);
     },
     // 2-1.取得該城市之 餐廳資料
     async getFoodDataByCity() {
@@ -385,8 +398,11 @@ export default {
           (!data.Address && Name === 'ActivityName') ||
           data.Position.GeoHash === this.defaultCardItem.Position.GeoHash
         ) {
+          // 將資料放入 officialSiteData
           this.officialSiteData.push(data);
-          console.log('this.officialSiteData', this.officialSiteData);
+
+          // 畫面滾動至 hasOfficialSiteBtn
+          this.$refs.map.scrollIntoView(false);
           return;
         }
 

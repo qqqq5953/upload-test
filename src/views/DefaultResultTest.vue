@@ -149,14 +149,20 @@ export default {
   margin-bottom: 70px;
   display: flex;
 
-  img {
-    margin-left: 24px;
-  }
-
   @include mobile {
     font-size: $font-size-md;
     text-align: center;
     margin-bottom: 30px;
+  }
+
+  img {
+    margin-left: 24px;
+    object-fit: cover;
+
+    @include mobile {
+      width: 16px;
+      margin-left: 12px;
+    }
   }
 }
 </style>

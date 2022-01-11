@@ -83,6 +83,7 @@
     }
 
     img {
+      // outline: 1px solid red;
       width: 100%;
       height: 549px;
       object-fit: cover;
@@ -285,7 +286,6 @@
     margin-bottom: 26px;
 
     @include pad {
-      margin-bottom: 50px;
       justify-content: space-between;
     }
 
@@ -320,12 +320,21 @@
         box-shadow: 0px 4px 16px rgba(51, 51, 51, 0.2);
 
         @include pad {
+          width: 55px;
+          height: 55px;
+        }
+
+        @include mobile {
           width: 40px;
           height: 40px;
         }
 
         .fas {
           @include pad {
+            font-size: $font-size-lg;
+          }
+
+          @include mobile {
             font-size: $font-size-md;
           }
         }
@@ -341,6 +350,10 @@
         text-shadow: 0px 4px 16px rgba(51, 51, 51, 0.2);
 
         @include pad {
+          font-size: $font-size-sm;
+        }
+
+        @include mobile {
           font-size: $font-size-xs;
         }
       }
@@ -365,7 +378,6 @@
     }
 
     .map_wrap {
-      position: relative;
       width: 61%;
 
       @include pad {
@@ -378,23 +390,13 @@
         background-color: #cb2b3e;
         color: #efefef;
         font-size: $font-size-lg;
-        position: absolute;
-        right: 0px;
-        right: -51px;
-        top: 0;
-        writing-mode: vertical-rl;
 
         @include pad {
           padding: 5px 10px;
-          writing-mode: horizontal-tb;
-          left: 0;
-          right: 0;
-          top: -26px;
           font-size: 16px;
         }
 
         @include mobile {
-          top: -22px;
           font-size: $font-size-xxs;
         }
       }
@@ -423,7 +425,7 @@
     }
 
     .hasOfficialSiteBtn {
-      border: 3px solid $color-primary;
+      border: 1px solid $color-primary;
       border-radius: 14px;
       background-color: $color-primary;
 
@@ -453,11 +455,27 @@
           font-size: $font-size-xxl;
           margin-right: 10px;
           font-weight: bold;
+
+          @include pad {
+            font-size: $font-size-lg;
+          }
+
+          @include mobile {
+            font-size: $font-size-md;
+          }
         }
       }
 
       span {
         font-size: $font-size-lg;
+
+        @include pad {
+          font-size: $font-size-md;
+        }
+
+        @include mobile {
+          font-size: $font-size-sm;
+        }
       }
     }
 

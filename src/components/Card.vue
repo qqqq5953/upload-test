@@ -1,7 +1,18 @@
 <template>
   <div class="card">
     <div class="card_image">
-      <img :src="item.Picture.PictureUrl1" :alt="item.Name" onerror />
+      <img
+        :src="item.Picture.PictureUrl1"
+        :alt="
+          item.ScenicSpotName
+            ? item.ScenicSpotName
+            : item.RestaurantName
+            ? item.RestaurantName
+            : item.HotelName
+            ? item.HotelName
+            : item.ActivityName
+        "
+      />
       <p
         class="card_description"
         :class="{ 'd-none': !item.DescriptionDetail }"
@@ -16,7 +27,7 @@
       <div class="card_header">
         <div class="card_header_location">
           <i class="fas fa-map-marker-alt"></i>
-          <span>{{ item.City }}</span>
+          <span>{{ item.City || item.Address.slice(0, 3) }}</span>
         </div>
         <h4 class="card_header_title">
           {{
@@ -50,7 +61,7 @@
 
 <script>
 export default {
-  props: ['item', 'txt'],
+  props: ['item', 'txt', 'name'],
   methods: {
     toContentPage() {
       console.log('card 發送');
@@ -62,6 +73,9 @@ export default {
 
       // 讓 CardDetail 中的卡片不要有"查看更多"按鈕
       localStorage.setItem('moreInfoBtnDnone', moreInfoBtnDnone);
+
+      // 換頁時回到頁面最上方
+      window.scrollTo(0, 0);
     }
   }
 };

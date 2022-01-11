@@ -71,6 +71,9 @@ export default {
       const moreResult = JSON.stringify(this.defaultType);
       console.log('========moreResult 發射========', moreResult);
       localStorage.setItem('passToMoreResult', moreResult);
+
+      // 換頁時回到頁面最上方
+      window.scrollTo(0, 0);
     },
     setPageButton(data) {
       this.totalPages = Math.ceil(data.length / this.cardPerPage);
