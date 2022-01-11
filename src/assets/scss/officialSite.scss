@@ -5,6 +5,14 @@
   color: $color-dark-50;
   width: 100%;
 
+  @include pad {
+    margin-top: 30px;
+  }
+
+  @include mobile {
+    margin-top: 15px;
+  }
+
   caption {
     text-align: center;
     font-size: $font-size-xl;

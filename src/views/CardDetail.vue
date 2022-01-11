@@ -158,7 +158,7 @@
         <!--  -->
         <OfficialSite
           :item="officialSiteData"
-          v-show="isTableShown"
+          v-if="isTableShown"
         ></OfficialSite>
       </section>
     </div>
@@ -467,9 +467,10 @@ export default {
       // 顯示卡片
       this.isCardShown = true;
       this.hasOfficialSiteBtn = false;
+      this.isTableShown = false;
 
       // 定位地圖 view 至點選位置
-      this.mymap.flyTo(selectedPosition, 16);
+      this.mymap.flyTo(selectedPosition, 17);
 
       // 改變圖標顏色
       const Name = this.nameFilter({ ...selectedSpot[0] });
@@ -692,12 +693,28 @@ export default {
       );
     },
     setMarkerPopup(latitude, longitude, pupUpContent, icon, card, customPopup) {
+      // const popup = L.popup()
+      //   .setLatLng([latitude, longitude])
+      //   .setContent(pupUpContent)
+      //   .openOn(this.mymap);
+
+      // const customOptions = {
+      //   autoClose: false,
+      //   closeButton: false,
+      //   className: customPopup
+      // };
+
+      // const marker = L.marker([latitude, longitude], { icon: icon })
+      //   .bindPopup(popup, customOptions)
+      //   .addTo(this.mymap)
+      //   .on('click', card);
+
       const marker = L.marker([latitude, longitude], { icon: icon })
         .addTo(this.mymap)
         .on('click', card);
 
       const popup = L.popup(
-        { autoClose: false, closeButton: false, className: customPopup },
+        { autoClose: false, closeButton: true, className: customPopup },
         marker
       )
         .setLatLng([latitude, longitude])
