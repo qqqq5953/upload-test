@@ -1,18 +1,7 @@
 <template>
   <div class="card">
     <div class="card_image">
-      <img
-        :src="item.Picture.PictureUrl1"
-        :alt="
-          item.ScenicSpotName
-            ? item.ScenicSpotName
-            : item.RestaurantName
-            ? item.RestaurantName
-            : item.HotelName
-            ? item.HotelName
-            : item.ActivityName
-        "
-      />
+      <img :src="item.Picture.PictureUrl1" />
       <p
         class="card_description"
         :class="{ 'd-none': !item.DescriptionDetail }"

@@ -62,7 +62,7 @@
         height: 170px;
       }
 
-      &::after {
+      &::before {
         content: 'Sorry! 無法顯示圖片';
         position: absolute;
         top: 0;
@@ -74,6 +74,7 @@
         height: 95%;
         font-size: 28px;
         font-weight: bold;
+        z-index: 100;
 
         @include pad {
           font-size: $font-size-md;
@@ -82,18 +83,23 @@
     }
 
     .card_description {
-      position: absolute;
+      width: 100%;
       padding: 16px 30px;
+
+      position: absolute;
       top: 0;
       bottom: 0;
       z-index: 3;
+
       color: #efefef;
       font-size: $font-size-lg;
       line-height: 1.9;
+
       -webkit-line-clamp: 6;
       -webkit-box-orient: vertical;
       display: -webkit-box;
       overflow: hidden;
+
       opacity: 0;
       transform: scale(0);
       transition: 0.4s;

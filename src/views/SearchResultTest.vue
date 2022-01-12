@@ -138,6 +138,7 @@ export default {
     }
   },
   async created() {
+    window.scrollTo(0, -1000);
     console.log('created inputKeywords', this.inputKeywords);
 
     // 搜尋用 API

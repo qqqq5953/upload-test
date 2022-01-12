@@ -5,7 +5,7 @@
     :width="loaderWidth"
     :height="loaderHeight"
   ></Loading>
-  <header class="header" :style="{ backgroundImage: `url(${image})` }" >
+  <header class="header" :style="{ backgroundImage: `url(${image})` }">
     <Navbar></Navbar>
     <section class="banner">
       <h2 class="banner_title">尋找台灣</h2>

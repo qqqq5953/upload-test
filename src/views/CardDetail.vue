@@ -15,18 +15,7 @@
         </p>
         <div class="info_content">
           <div class="info_img">
-            <img
-              :src="defaultCardItem.Picture.PictureUrl1"
-              :alt="
-                defaultCardItem.ScenicSpotName
-                  ? defaultCardItem.ScenicSpotName
-                  : defaultCardItem.RestaurantName
-                  ? defaultCardItem.RestaurantName
-                  : defaultCardItem.HotelName
-                  ? defaultCardItem.HotelName
-                  : defaultCardItem.ActivityName
-              "
-            />
+            <img :src="defaultCardItem.Picture.PictureUrl1" />
           </div>
           <div class="info_details">
             <h3>資訊</h3>
@@ -128,7 +117,7 @@
             href="#"
             class="hasOfficialSiteBtn"
             v-if="hasOfficialSiteBtn"
-            @click.prevent="showTable"
+            @click.prevent="isTableShown = true"
           >
             <div class="hasOfficialSiteText">
               <span>更多官網活動</span>
@@ -393,6 +382,15 @@ export default {
     getDataByDistance(rawData) {
       const filteredDataByDistance = rawData.filter((data) => {
         const Name = this.nameFilter(data);
+        // 如果 "data 名字" 或 "dataGeoHash(座標ID)" 與 "頁面資訊" 相等，return
+        if (
+          data[Name] === this.defaultCardItem[this.Name] ||
+          data.Position.GeoHash === this.defaultCardItem.Position.GeoHash
+        ) {
+          console.log('check', data[Name] === this.defaultCardItem[this.Name]);
+          return;
+        }
+
         // 如果活動是網站活動且沒地址，或 "dataGeoHash(座標ID)" 與 "頁面資訊" 相等
         if (
           (!data.Address && Name === 'ActivityName') ||
@@ -400,17 +398,10 @@ export default {
         ) {
           // 將資料放入 officialSiteData
           this.officialSiteData.push(data);
+          console.log('officialSiteData', this.officialSiteData);
 
           // 畫面滾動至 hasOfficialSiteBtn
           this.$refs.map.scrollIntoView(false);
-          return;
-        }
-
-        // 如果 "data 名字" 或 "dataGeoHash(座標ID)" 與 "頁面資訊" 相等，return
-        if (
-          data[Name] === this.defaultCardItem[this.Name] ||
-          data.Position.GeoHash === this.defaultCardItem.Position.GeoHash
-        ) {
           return;
         }
 
@@ -633,13 +624,11 @@ export default {
       this.geoArr.push({ name, marker, popup });
     },
     showDefaultCard() {
-      console.log('showDefaultCard');
       this.isCardShown = true;
       this.hasOfficialSiteBtn = false;
+      this.isTableShown = false;
+
       this.cardItem = this.defaultCardItem;
-    },
-    showTable() {
-      this.isTableShown = true;
     },
     clearPreviousData() {
       this.geoArr.forEach((item) => {

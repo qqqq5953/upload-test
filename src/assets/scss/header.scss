@@ -72,7 +72,8 @@
   }
 
   .banner_searchBar {
-    width: 100%;
+    width: 78.4%;
+    // width: 677px;
     position: relative;
 
     @include mobile {
@@ -137,9 +138,11 @@
     @include btn-rectangle;
     @include btn-hover;
     margin-left: 22px;
-    padding: 21px 43px;
+    // padding: 21px 10px;
     display: flex;
+    justify-content: center;
     align-items: center;
+    width: 19.5%;
 
     @include pad {
       padding: 16px 20px;
@@ -157,18 +160,21 @@
 
       .fa-bars {
         display: block;
-        font-size: $font-size-lg;
+        font-size: 23px;
+
+        @include pad {
+          font-size: 16px;
+        }
       }
     }
 
     .banner_filterText {
       font-size: 22px;
       line-height: 1.2;
-      margin-left: 14px;
+      margin-left: 8%;
 
       @include pad {
-        font-size: $font-size-md;
-        margin-left: 10px;
+        font-size: 16px;
       }
 
       @include mobile {
