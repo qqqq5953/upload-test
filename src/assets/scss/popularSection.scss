@@ -1,5 +1,6 @@
 .card_section {
   padding: 55px 7.09% 70px;
+  padding: 55px 101px 70px;
   &:nth-of-type(2) {
     background-color: $color-secondary;
   }
@@ -37,6 +38,10 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+
+  @include pad {
+    justify-content: space-between;
+  }
 }
 
 .card_section_morePlaceBtn {
