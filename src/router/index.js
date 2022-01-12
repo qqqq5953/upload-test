@@ -42,16 +42,9 @@ const routes = [
     component: () => import('../views/CardDetail.vue')
   },
   {
-    path: '/404',
+    path: '/:pathMatch(.*)*',
     name: '404',
     component: () => import('../views/PageNotFound.vue')
-  },
-  {
-    path: '/: pathMatch(.*)*',
-    redirect: {
-      name: '404'
-      // /: pathMatch(.*)
-    }
   },
   {
     path: '/about',
