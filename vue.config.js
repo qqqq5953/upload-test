@@ -1,9 +1,8 @@
 module.exports = {
-  // publicPath: '/tourist-site-project/dist/',
   css: {
     loaderOptions: {
       scss: {
-        prependData: `@import "@/assets/scss/main.scss";`,
+        prependData: '@import "@/assets/scss/main.scss";',
       }
     }
   },
@@ -11,5 +10,7 @@ module.exports = {
     externals: {
       Vue: "vue"
     }
-  }
+  },
+
+  publicPath: '/upload-test/dist/'
 }
