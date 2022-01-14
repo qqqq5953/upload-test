@@ -5,29 +5,29 @@
     :width="loaderWidth"
     :height="loaderHeight"
   ></Loading>
-  <div class="wrap">
-    <HeaderSectionTest ref="wrap"></HeaderSectionTest>
-    <PopularSectionTest :data="placeData" defaultType="熱門景點">
-      <template #card_section_title_text>
-        熱門景點
-        <img src="@/assets/images/place-icon.png" alt="place-icon" />
-      </template>
-    </PopularSectionTest>
+  <!-- <div class="wrap"> -->
+  <HeaderSectionTest ref="wrap"></HeaderSectionTest>
+  <PopularSectionTest :data="placeData" defaultType="熱門景點">
+    <template #card_section_title_text>
+      熱門景點
+      <img src="@/assets/images/place-icon.png" alt="place-icon" />
+    </template>
+  </PopularSectionTest>
 
-    <PopularSectionTest :data="foodData" defaultType="熱門美食">
-      <template #card_section_title_text>
-        熱門美食
-        <img src="@/assets/images/restaurant-icon.png" alt="restaurant-icon" />
-      </template>
-    </PopularSectionTest>
+  <PopularSectionTest :data="foodData" defaultType="熱門美食">
+    <template #card_section_title_text>
+      熱門美食
+      <img src="@/assets/images/restaurant-icon.png" alt="restaurant-icon" />
+    </template>
+  </PopularSectionTest>
 
-    <PopularSectionTest :data="eventData" defaultType="近期活動">
-      <template #card_section_title_text>
-        近期活動
-        <img src="@/assets/images/event-icon.png" alt="event-icon"
-      /></template>
-    </PopularSectionTest>
-  </div>
+  <PopularSectionTest :data="eventData" defaultType="近期活動">
+    <template #card_section_title_text>
+      近期活動
+      <img src="@/assets/images/event-icon.png" alt="event-icon"
+    /></template>
+  </PopularSectionTest>
+  <!-- </div> -->
 </template>
 
 <script>

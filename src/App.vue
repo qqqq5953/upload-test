@@ -1,12 +1,5 @@
 <template>
   <div class="wrap" :class="{ loading_mask: false }">
-    <!-- <HeaderSection
-      :place="placeData"
-      :food="foodData"
-      :event="eventData"
-      :allData="allData"
-    ></HeaderSection> -->
-    <!-- <HeaderSection></HeaderSection> -->
     <router-view></router-view>
   </div>
 </template>

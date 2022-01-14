@@ -1,15 +1,4 @@
 <template>
-  <!-- height: 100vh; -->
-  <!-- style="
-      background-color: rgba(0, 0, 0, 0.5);
-      width: 100%;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-    " -->
   <div
     class="loading_mask"
     style="

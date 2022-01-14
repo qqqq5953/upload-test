@@ -16,7 +16,13 @@
       <div class="card_header">
         <div class="card_header_location">
           <i class="fas fa-map-marker-alt"></i>
-          <span>{{ item.City || item.Address.slice(0, 3) }}</span>
+          <span v-if="item.City">{{ item.City }}</span>
+          <span v-else-if="item.Address">{{
+            item.Address[2] === '縣' || item.Address[2] === '市'
+              ? item.Address.slice(0, 3)
+              : item.Address.slice(0, 2)
+          }}</span>
+          <span v-else>無</span>
         </div>
         <h4 class="card_header_title">
           {{

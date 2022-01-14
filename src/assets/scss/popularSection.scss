@@ -38,9 +38,14 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  // outline: 1px solid red;
 
   @include pad {
-    justify-content: space-between;
+    justify-content: center;
+    outline: 1px solid red;
+    // justify-content: space-between;
+
+    // flex-wrap: nowrap;
   }
 }
 
