@@ -12,5 +12,5 @@ module.exports = {
     }
   },
 
-  publicPath: '/upload/dist/'
+  publicPath: '/upload-test/dist/'
 }
