@@ -9,21 +9,21 @@
   <HeaderSectionTest ref="wrap"></HeaderSectionTest>
   <PopularSectionTest :data="placeData" defaultType="熱門景點">
     <template #card_section_title_text>
-      熱門景點
+      <span>熱門景點</span>
       <img src="@/assets/images/place-icon.png" alt="place-icon" />
     </template>
   </PopularSectionTest>
 
   <PopularSectionTest :data="foodData" defaultType="熱門美食">
     <template #card_section_title_text>
-      熱門美食
+      <span>熱門美食</span>
       <img src="@/assets/images/restaurant-icon.png" alt="restaurant-icon" />
     </template>
   </PopularSectionTest>
 
   <PopularSectionTest :data="eventData" defaultType="近期活動">
     <template #card_section_title_text>
-      近期活動
+      <span>近期活動</span>
       <img src="@/assets/images/event-icon.png" alt="event-icon"
     /></template>
   </PopularSectionTest>
@@ -145,27 +145,13 @@ export default {
 
 <style lang="scss" scoped>
 // @import '@/assets/scss/popularSection.scss';
-.card_section_title {
-  font-weight: bold;
-  font-size: $font-size-xxl;
-  color: $color-primary;
-  margin-bottom: 70px;
-  display: flex;
+img {
+  margin-left: 24px;
+  object-fit: cover;
 
   @include mobile {
-    font-size: $font-size-md;
-    text-align: center;
-    margin-bottom: 30px;
-  }
-
-  img {
-    margin-left: 24px;
-    object-fit: cover;
-
-    @include mobile {
-      width: 16px;
-      margin-left: 12px;
-    }
+    width: 16px;
+    margin-left: 12px;
   }
 }
 </style>

@@ -12,15 +12,24 @@
     :resultPath="path"
   >
     <template #card_section_title_text>
-      <div v-if="filteredType === 'ScenicSpot'">
+      <div
+        class="card_section_title_search_text"
+        v-if="filteredType === 'ScenicSpot'"
+      >
         <span>熱門景點</span>
         <img src="@/assets/images/place-icon.png" alt="place-icon" />
       </div>
-      <div v-else-if="filteredType === 'Restaurant'">
+      <div
+        class="card_section_title_search_text"
+        v-else-if="filteredType === 'Restaurant'"
+      >
         <span>熱門美食</span>
         <img src="@/assets/images/restaurant-icon.png" alt="restaurant-icon" />
       </div>
-      <div v-else-if="filteredType === 'Activity'">
+      <div
+        class="card_section_title_search_text"
+        v-else-if="filteredType === 'Activity'"
+      >
         <span>近期活動</span>
         <img src="@/assets/images/event-icon.png" alt="event-icon" />
       </div>
@@ -161,21 +170,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card_section_title {
-  font-weight: bold;
-  font-size: $font-size-xxl;
-  color: $color-primary;
-  margin-bottom: 70px;
+.card_section_title_search_text {
   display: flex;
+  align-items: stretch;
 
   img {
     margin-left: 24px;
-  }
+    object-fit: cover;
 
-  @include mobile {
-    font-size: $font-size-md;
-    text-align: center;
-    margin-bottom: 30px;
+    @include mobile {
+      margin-left: 12px;
+      width: 16px;
+    }
   }
 }
 </style>

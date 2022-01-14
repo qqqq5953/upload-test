@@ -28,9 +28,14 @@
     margin-bottom: 30px;
   }
 
+  // PopularSectionTest.vue 跟DefaultSectionTest.vue 有個別設定
   img {
     margin-left: 24px;
     object-fit: cover;
+
+    @include mobile {
+      margin-left: 12px;
+    }
   }
 }
 
@@ -38,11 +43,6 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-
-  @include pad {
-    // justify-content: center;
-    outline: 1px solid red;
-  }
 }
 
 .card_section_morePlaceBtn {
