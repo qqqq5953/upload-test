@@ -14,13 +14,12 @@
 
   @include pad {
     outline: 1px solid red;
-    margin-left: 0;
-    margin-right: 0;
-    width: #{'max(45%, 345px)'};
+    // margin-left: 0;
+    // margin-right: 0;
+    width: #{'max(45%, 275px)'};
   }
 
   @include mobile {
-    outline: 1px solid blue;
     margin: 0 auto 34px;
     width: 100%;
   }

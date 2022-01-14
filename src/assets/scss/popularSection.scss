@@ -20,7 +20,7 @@
   color: $color-primary;
   margin-bottom: 70px;
   display: flex;
-  align-items: center;
+  align-items: stretch;
 
   @include mobile {
     font-size: $font-size-md;
@@ -38,14 +38,10 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  // outline: 1px solid red;
 
   @include pad {
-    justify-content: center;
+    // justify-content: center;
     outline: 1px solid red;
-    // justify-content: space-between;
-
-    // flex-wrap: nowrap;
   }
 }
 
